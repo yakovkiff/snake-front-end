@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 	const snake = new Snake()
+	let food = new Food()
 
 	const playground = $('#game-container')
 
@@ -22,9 +23,18 @@ $(document).ready(function(){
 			snakeAlive = false
 		}
 
+		function snakeEatsFood() {
+			return snake.coordinates === food.coordinates
+		}
+
+		if (snakeEatsFood()) {
+			food.delete()
+			food = new Food()
+		}
+
 		if (snakeAlive && gameOn) {
 			snake.advance()
-			playground.html(snake.render())
+			playground.html((snake.render() + food.render()))
 		}
 
 	},250)
@@ -57,10 +67,3 @@ $(document).ready(function(){
 // function convertPxToNum(numPixels){
 // 	return parseInt(numPixels/*.slice(0,-2)*/)/15
 // }
-
-
-
-
-
-
-

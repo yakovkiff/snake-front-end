@@ -4,8 +4,10 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous">
     </script>
+    <script type="text/javascript" src="src/snake.js"></script>
+    <script type="text/javascript" src="src/food.js"></script>
     <script type="text/javascript" src="adapters/usersAdapter.js"></script>
-    <script type="text/javascript" src="index.js"></script>
+    <script type="text/javascript" src="src/index.js"></script>
     <title>Snake</title>
 </head>
 <style type="text/css">
@@ -14,6 +16,12 @@
     background-color: darkred;
     height: 15px;
     width: 15px;
+}
+.food {
+  position: relative;
+  background-color: black;
+  height: 15px;
+  width: 15px;
 }
 #game-container {
 
