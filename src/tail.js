@@ -5,14 +5,19 @@ const Tail = (function(){
         constructor(snakeHead) {
             this.snakeHead = snakeHead
             // this.snakeHead.snakeTailBlocks.push(this)
+            if (tailBlocks.length === 0) {
+              this.moves = []
+            }
+            else {
+              this.moves = tailBlocks[tailBlocks.length - 1].moves.slice()
+            }
             this.setBearingAndCoordinates()
             tailBlocks.push(this)
-            this.moves = []
             this.id = idCounter++
-            console.log("coordinates of move:", this.moves[0])
-            console.log("coordinates",this.coordinates)
-            console.log("bearing", this.bearing)
-            console.log("snake head bearing", this.snakeHead.bearing)
+            // console.log("coordinates of move:", this.moves[0])
+            // console.log("coordinates",this.coordinates)
+            // console.log("bearing", this.bearing)
+            // console.log("snake head bearing", this.snakeHead.bearing)
         }
 
         static tailBlocks(){
@@ -73,31 +78,31 @@ const Tail = (function(){
 
         advance() {
 
-        if (this.moves.length > 0) {
-          // debugger
-          if (this.coordinates[0] === this.moves[0].coordinates[0] && 
-            this.coordinates[1] === this.moves[0].coordinates[1]){
-              this.bearing = this.moves[0].bearing
-              this.moves.shift()
-          }
-        }
-            switch (this.bearing) {
-                case "up":
-                    this.coordinates[1] -= 15
-                    break;
-
-                case "right":
-                    this.coordinates[0] += 15
-                    break;
-
-                case "down":
-                    this.coordinates[1] += 15
-                    break;
-
-                case "left":
-                    this.coordinates[0] -= 15
-                    break;
+          if (this.moves.length > 0) {
+            // debugger
+            if (this.coordinates[0] === this.moves[0].coordinates[0] &&
+              this.coordinates[1] === this.moves[0].coordinates[1]){
+                this.bearing = this.moves[0].bearing
+                this.moves.shift()
             }
+          }
+          switch (this.bearing) {
+              case "up":
+                  this.coordinates[1] -= 15
+                  break;
+
+              case "right":
+                  this.coordinates[0] += 15
+                  break;
+
+              case "down":
+                  this.coordinates[1] += 15
+                  break;
+
+              case "left":
+                  this.coordinates[0] -= 15
+                  break;
+          }
         }
         render() {
         	// let renderHTML =
