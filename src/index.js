@@ -1,11 +1,12 @@
 $(document).ready(function(){
 
-	const snake = new Snake()
+	const snakeHead = new SnakeHead()
 	let food = new Food()
 
 	const playground = $('#game-container')
 
-	let snakeHead = $("#head")
+	playground.append(food.render())
+	// let snakeHeadEl = $("#head")
 
 	let gameOn = true
 
@@ -18,23 +19,31 @@ $(document).ready(function(){
 
 	let gameFlow = setInterval(function(){
 
-		if (snake.coordinates[0] <= leftBound || snake.coordinates[0] >= rightBound
-		|| snake.coordinates[1] <= topBound || snake.coordinates[1] >= bottomBound) {
+		if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound
+		|| snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {
 			snakeAlive = false
+			console.log('Snake has died. Hit refresh to start a new game')
 		}
 
 		function snakeEatsFood() {
-			return snake.coordinates === food.coordinates
+			return snakeHead.coordinates[0] === food.coordinates[0] && snakeHead.coordinates[1] === food.coordinates[1] 
 		}
 
-		if (snakeEatsFood()) {
-			food.delete()
-			food = new Food()
-		}
 
 		if (snakeAlive && gameOn) {
-			snake.advance()
-			playground.html((snake.render() + food.render()))
+			snakeHead.advance()
+
+			if (snakeEatsFood()) {
+				// debugger
+				food.delete()
+				food = new Food()
+				playground.append(food.render())
+				let snakeTail = new Tail(snakeHead)
+
+			}
+			snakeHead.delete()
+			Tail.deleteAll()
+			playground.append(snakeHead.render() + Tail.renderAll())
 		}
 
 	},250)
@@ -43,16 +52,24 @@ $(document).ready(function(){
 		console.log(event.keyCode)
 		switch (event.keyCode) {
 			case 38:
-				snake.bearing = "up"
+				if (snakeHead.bearing !== "down"){
+					snakeHead.bearing = "up"
+				}
 				break;
 			case 40:
-				snake.bearing = "down"
+				if (snakeHead.bearing !== "up"){
+					snakeHead.bearing = "down"
+				}
 				break;
 			case 37:
-				snake.bearing = "left"
+				if (snakeHead.bearing !== "right"){
+					snakeHead.bearing = "left"
+				}
 				break;
 			case 39:
-				snake.bearing = "right"
+				if (snakeHead.bearing !== "left"){
+					snakeHead.bearing = "right"
+				}
 				break;
 			case 32:
 				gameOn = !gameOn

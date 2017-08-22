@@ -1,11 +1,10 @@
-class Snake {
-    // implement your solution here!
-    //
+class SnakeHead {
+
     constructor(bearing = 'down', coordinates = [15, 15]) {
         this.bearing = bearing
         this.coordinates = coordinates
+        // this.snakeTailBlocks = []
     }
-
 
     // at(x, y) {
     //     this.coordinates = [x, y];
@@ -37,4 +36,8 @@ class Snake {
     	`
     }
 
+    delete() {
+        $('#head').remove()
     }
+
+}
