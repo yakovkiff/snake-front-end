@@ -27,43 +27,29 @@ $(document).ready(function(){
 			console.log('Snake has died. Hit refresh to start a new game')
 		}
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 		function snakeEatsFood() {
 			return snakeHead.coordinates[0] === food.coordinates[0] && snakeHead.coordinates[1] === food.coordinates[1]
 		}
 
 
 		if (snakeAlive && gameOn) {
+			
 			snakeHead.advance()
-
-
-			Tail.tailBlocks().forEach(function(tailBlock){
-				console.log("id:", tailBlock.id, tailBlock.moves)
-				if (tailBlock.moves.length > 0) {
-					// debugger
-					if (tailBlock.coordinates[0] === tailBlock.moves[0].coordinates[0] && 
-						tailBlock.coordinates[1] === tailBlock.moves[0].coordinates[1]){
-							tailBlock.bearing = tailBlock.moves[0].bearing
-							tailBlock.moves.shift()
-					}
-				}
-				tailBlock.advance()
-
-			})
-			// get next
-			// Tail.tailBlocks().forEach(function(tailBlock) {
-			// 	tailBlock.nextMove = moves.find(move => !tailBlock.moves.includes(move))
-			// })
-
-
-			//when tailBlock hits coordinates of nextMove, tailBlock's bearing changes to bearing of nextMove, and nextMove is pushed
-			// to the tailBlock's moves array
+			
+			Tail.advanceAll()
 
 			if (snakeEatsFood()) {
-				// debugger
-				food.delete()
-				food = new Food()
-				playground.append(food.render())
-				let snakeTail = new Tail(snakeHead)
+				async function doSomething() {
+					food.delete()
+					food = new Food()
+					playground.append(food.render())
+					let snakeTail = new Tail(snakeHead)
+					await sleep(2000)
+				}
+			doSomething()
 
 			}
 			snakeHead.delete()
@@ -71,7 +57,7 @@ $(document).ready(function(){
 			playground.append(snakeHead.render() + Tail.renderAll())
 		}
 
-	},250)
+	},150)
 
 		// function tailBlockExists(){
 		// 	if (Tail.tailBlocks())

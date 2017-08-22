@@ -9,6 +9,10 @@ const Tail = (function(){
             tailBlocks.push(this)
             this.moves = []
             this.id = idCounter++
+            console.log("coordinates of move:", this.moves[0])
+            console.log("coordinates",this.coordinates)
+            console.log("bearing", this.bearing)
+            console.log("snake head bearing", this.snakeHead.bearing)
         }
 
         static tailBlocks(){
@@ -34,26 +38,26 @@ const Tail = (function(){
             switch (this.bearing) {
               case "up":
                   console.log("case up")
-                  this.coordinates[1] -= 30
+                  this.coordinates[1] += 30
                   break;
 
               case "right":
 
                 console.log("case right")
 
-                  this.coordinates[0] += 30
+                  this.coordinates[0] -= 30
                   break;
 
               case "down":
               console.log("case down")
 
-                  this.coordinates[1] += 30
+                  this.coordinates[1] -= 30
                   break;
 
               case "left":
               console.log("case left")
 
-                  this.coordinates[0] -= 30
+                  this.coordinates[0] += 30
                   break;
               }
 
@@ -63,7 +67,20 @@ const Tail = (function(){
         // at(x, y) {
         //     this.coordinates = [x, y];
         // }
+        static advanceAll() {
+          tailBlocks.forEach(tailBlock => tailBlock.advance())
+        }
+
         advance() {
+
+        if (this.moves.length > 0) {
+          // debugger
+          if (this.coordinates[0] === this.moves[0].coordinates[0] && 
+            this.coordinates[1] === this.moves[0].coordinates[1]){
+              this.bearing = this.moves[0].bearing
+              this.moves.shift()
+          }
+        }
             switch (this.bearing) {
                 case "up":
                     this.coordinates[1] -= 15
@@ -85,7 +102,7 @@ const Tail = (function(){
         render() {
         	// let renderHTML =
         	return `
-        	<div class="tail" id="tail" style="left: ${this.coordinates[0]}px; top: ${this.coordinates[1]}px">
+        	<div class="tail" id="tail-${this.id}" style="left: ${this.coordinates[0]}px; top: ${this.coordinates[1]}px">
             </div>
         	`
         }
