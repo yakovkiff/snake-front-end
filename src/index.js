@@ -19,7 +19,8 @@ $(document).ready(function(){
 
 	const moves = []
 
-	let gameFlow = setInterval(function(){
+(function gameFlow(){
+	setInterval(function(){
 
 		if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound
 		|| snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {
@@ -46,8 +47,10 @@ function sleep(ms) {
 					food.delete()
 					food = new Food()
 					playground.append(food.render())
-					let snakeTail = new Tail(snakeHead)
+					clearInterval(gameFlow)
 					await sleep(2000)
+					let snakeTail = new Tail(snakeHead)
+					gameFlow()
 				}
 			doSomething()
 
@@ -58,6 +61,7 @@ function sleep(ms) {
 		}
 
 	},150)
+})()
 
 		// function tailBlockExists(){
 		// 	if (Tail.tailBlocks())
