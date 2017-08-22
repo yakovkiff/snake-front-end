@@ -35,15 +35,28 @@ $(document).ready(function(){
 		if (snakeAlive && gameOn) {
 			snakeHead.advance()
 
-			// get next
-			Tail.tailBlocks().forEach(function(tailBlock) {
-				tailBlock.nextMove = moves.find(move => !tailBlock.moves.includes(move))
+
+			Tail.tailBlocks().forEach(function(tailBlock){
+				console.log("id:", tailBlock.id, tailBlock.moves)
+				if (tailBlock.moves.length > 0) {
+					// debugger
+					if (tailBlock.coordinates[0] === tailBlock.moves[0].coordinates[0] && 
+						tailBlock.coordinates[1] === tailBlock.moves[0].coordinates[1]){
+							tailBlock.bearing = tailBlock.moves[0].bearing
+							tailBlock.moves.shift()
+					}
+				}
+				tailBlock.advance()
+
 			})
+			// get next
+			// Tail.tailBlocks().forEach(function(tailBlock) {
+			// 	tailBlock.nextMove = moves.find(move => !tailBlock.moves.includes(move))
+			// })
+
 
 			//when tailBlock hits coordinates of nextMove, tailBlock's bearing changes to bearing of nextMove, and nextMove is pushed
 			// to the tailBlock's moves array
-
-			Tail.tailBlocks().forEach(tailBlock => tailBlock.advance())
 
 			if (snakeEatsFood()) {
 				// debugger
@@ -60,6 +73,13 @@ $(document).ready(function(){
 
 	},250)
 
+		// function tailBlockExists(){
+		// 	if (Tail.tailBlocks())
+		// }
+
+		// function addMoveToTail(){
+		// 	Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)) )
+		// }
 
 
 	$(document).on('keyup', function(event){
@@ -68,26 +88,30 @@ $(document).ready(function(){
 			case 38:
 				if (snakeHead.bearing !== "down"){
 					snakeHead.bearing = "up"
-					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )	
 				}
 				break;
 			case 40:
 				if (snakeHead.bearing !== "up"){
 					snakeHead.bearing = "down"
-					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 				}
 				break;
 			case 37:
 				if (snakeHead.bearing !== "right"){
 					snakeHead.bearing = "left"
-					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 
 				}
 				break;
 			case 39:
 				if (snakeHead.bearing !== "left"){
 					snakeHead.bearing = "right"
-					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+					Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 
 				}
 				break;
@@ -104,3 +128,7 @@ $(document).ready(function(){
 // function convertPxToNum(numPixels){
 // 	return parseInt(numPixels/*.slice(0,-2)*/)/15
 // }
+
+
+
+

@@ -1,5 +1,6 @@
 const Tail = (function(){
     let tailBlocks = []
+    let idCounter = 0
     return class Tail {
         constructor(snakeHead) {
             this.snakeHead = snakeHead
@@ -7,6 +8,7 @@ const Tail = (function(){
             this.setBearingAndCoordinates()
             tailBlocks.push(this)
             this.moves = []
+            this.id = idCounter++
         }
 
         static tailBlocks(){
