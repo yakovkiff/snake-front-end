@@ -17,6 +17,8 @@ $(document).ready(function(){
 	let topBound = -1
 	let bottomBound = 391
 
+	const moves = []
+
 	let gameFlow = setInterval(function(){
 
 		if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound
@@ -26,12 +28,22 @@ $(document).ready(function(){
 		}
 
 		function snakeEatsFood() {
-			return snakeHead.coordinates[0] === food.coordinates[0] && snakeHead.coordinates[1] === food.coordinates[1] 
+			return snakeHead.coordinates[0] === food.coordinates[0] && snakeHead.coordinates[1] === food.coordinates[1]
 		}
 
 
 		if (snakeAlive && gameOn) {
 			snakeHead.advance()
+
+			// get next
+			Tail.tailBlocks().forEach(function(tailBlock) {
+				tailBlock.nextMove = moves.find(move => !tailBlock.moves.includes(move))
+			})
+
+			//when tailBlock hits coordinates of nextMove, tailBlock's bearing changes to bearing of nextMove, and nextMove is pushed
+			// to the tailBlock's moves array
+
+			Tail.tailBlocks().forEach(tailBlock => tailBlock.advance())
 
 			if (snakeEatsFood()) {
 				// debugger
@@ -48,27 +60,35 @@ $(document).ready(function(){
 
 	},250)
 
+
+
 	$(document).on('keyup', function(event){
 		console.log(event.keyCode)
 		switch (event.keyCode) {
 			case 38:
 				if (snakeHead.bearing !== "down"){
 					snakeHead.bearing = "up"
+					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 				}
 				break;
 			case 40:
 				if (snakeHead.bearing !== "up"){
 					snakeHead.bearing = "down"
+					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 				}
 				break;
 			case 37:
 				if (snakeHead.bearing !== "right"){
 					snakeHead.bearing = "left"
+					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+
 				}
 				break;
 			case 39:
 				if (snakeHead.bearing !== "left"){
 					snakeHead.bearing = "right"
+					moves.push({location: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
+
 				}
 				break;
 			case 32:

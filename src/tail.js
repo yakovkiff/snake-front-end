@@ -4,8 +4,9 @@ const Tail = (function(){
         constructor(snakeHead) {
             this.snakeHead = snakeHead
             // this.snakeHead.snakeTailBlocks.push(this)
-            tailBlocks.push(this)
             this.setBearingAndCoordinates()
+            tailBlocks.push(this)
+            this.moves = []
         }
 
         static tailBlocks(){
@@ -18,32 +19,42 @@ const Tail = (function(){
 
         setBearingAndCoordinates() {
             let tailBearing = ''
-            if (tailBlocks.length === 1) {
-                this.bearing = this.snakeHead.bearing
-                this.coordinates = this.snakeHead.coordinates
+            if (tailBlocks.length === 0) {
+                this.bearing = this.snakeHead.bearing.slice()
+                this.coordinates = this.snakeHead.coordinates.slice()
             }
             else {
-                this.bearing = this.constructor.tailBlocks().slice(-2, -1).bearing
-                this.coordinates = this.constructor.tailBlocks().slice(-2, -1).coordinates
-  
+              // debugger
+                this.bearing = tailBlocks[tailBlocks.length - 1].bearing.slice()
+                this.coordinates = tailBlocks[tailBlocks.length - 1].coordinates.slice()
+
             }
             switch (this.bearing) {
-            case "up":
-                this.coordinates[1] -= 30
-                break;
+              case "up":
+                  console.log("case up")
+                  this.coordinates[1] -= 30
+                  break;
 
-            case "right":
-                this.coordinates[0] += 30
-                break;
+              case "right":
 
-            case "down":
-                this.coordinates[1] += 30
-                break;
+                console.log("case right")
 
-            case "left":
-                this.coordinates[0] -= 30
-                break;
-            }   
+                  this.coordinates[0] += 30
+                  break;
+
+              case "down":
+              console.log("case down")
+
+                  this.coordinates[1] += 30
+                  break;
+
+              case "left":
+              console.log("case left")
+
+                  this.coordinates[0] -= 30
+                  break;
+              }
+
         }
 
 
