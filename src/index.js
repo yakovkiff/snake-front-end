@@ -29,7 +29,7 @@ $(document).ready(function(){
 			console.log('Snake has died. Hit refresh to start a new game')
 		}
 		//snake dies if it hits itself
-		Tail.tailBlocks().some(function(tailBlock){
+		snakeHead.tailBlocks.some(function(tailBlock){
 			if (snakeHead.coordinates[0] === tailBlock.coordinates[0] &&
 				snakeHead.coordinates[1] === tailBlock.coordinates[1]){
 				snakeAlive = false
@@ -81,40 +81,40 @@ $(document).ready(function(){
 						console.log('pressed up and bearing =', snakeHead.bearing)
 						snakeHead.bearing = "up"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
-						Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 						
 						console.log(moves)
-						Tail.tailBlocks().forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
+						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 40: //down arrow
 					if (snakeHead.bearing !== "up" && snakeHead.bearing !== "down"){
 						snakeHead.bearing = "down"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
-						Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 
 						console.log(moves)
-						Tail.tailBlocks().forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
+						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 37: // left arrow
 					if (snakeHead.bearing !== "right" && snakeHead.bearing !== "left"){
 						snakeHead.bearing = "left"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
-						Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 						
 						console.log(moves)
-						Tail.tailBlocks().forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
+						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 39: //right arrow
 					if (snakeHead.bearing !== "left" && snakeHead.bearing !== "right"){
 						snakeHead.bearing = "right"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
-						Tail.tailBlocks().forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
 					
 					console.log(moves)
-					Tail.tailBlocks().forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
+					snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 32: //spacebar pauses the game

@@ -4,7 +4,7 @@ const Tail = (function(){
     return class Tail {
         constructor(snakeHead) {
             this.snakeHead = snakeHead
-            // this.snakeHead.snakeTailBlocks.push(this)
+            this.snakeHead.tailBlocks.push(this)
             if (tailBlocks.length === 0) {
               this.moves = []
             }

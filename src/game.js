@@ -8,7 +8,7 @@ const Game = (function() {
 		}
 
 		save() {
-			this.tailSize = this.snakeHead
+			// this.snakeHead.tailSize()
 		}
 
 	}
