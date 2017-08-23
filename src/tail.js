@@ -38,19 +38,19 @@ const Tail = (function(){
             }
             switch (this.bearing) {
               case "up":
-                  this.coordinates[1] += 30
+                  this.coordinates[1] += 15
                   break;
 
               case "right":
-                  this.coordinates[0] -= 30
+                  this.coordinates[0] -= 15
                   break;
 
               case "down":
-                  this.coordinates[1] -= 30
+                  this.coordinates[1] -= 15
                   break;
 
               case "left":
-                  this.coordinates[0] += 30
+                  this.coordinates[0] += 15
                   break;
               }
 

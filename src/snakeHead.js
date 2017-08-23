@@ -3,7 +3,7 @@ class SnakeHead {
     constructor(bearing = 'down', coordinates = [15, 15]) {
         this.bearing = bearing
         this.coordinates = coordinates
-        // this.snakeTailBlocks = []
+        this.snakeTailBlocks = []
     }
 
     // at(x, y) {
@@ -28,6 +28,11 @@ class SnakeHead {
                 break;
         }
     }
+
+    // tailBlocks() {
+    //     this.snakeTailBlocks
+    // }
+
     render() {
     	// let renderHTML =
     	return `
