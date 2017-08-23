@@ -14,10 +14,6 @@ const Tail = (function(){
             this.setBearingAndCoordinates()
             tailBlocks.push(this)
             this.id = idCounter++
-            // console.log("coordinates of move:", this.moves[0])
-            // console.log("coordinates",this.coordinates)
-            // console.log("bearing", this.bearing)
-            // console.log("snake head bearing", this.snakeHead.bearing)
         }
 
         static tailBlocks(){
@@ -42,26 +38,18 @@ const Tail = (function(){
             }
             switch (this.bearing) {
               case "up":
-                  console.log("case up")
                   this.coordinates[1] += 30
                   break;
 
               case "right":
-
-                console.log("case right")
-
                   this.coordinates[0] -= 30
                   break;
 
               case "down":
-              console.log("case down")
-
                   this.coordinates[1] -= 30
                   break;
 
               case "left":
-              console.log("case left")
-
                   this.coordinates[0] += 30
                   break;
               }
