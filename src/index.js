@@ -1,6 +1,7 @@
 $(document).ready(function(){
 
 	UserForm.renderOnPage()
+	User.renderUsersAtStart()
 
 	const snakeHead = new SnakeHead()
 	let food = new Food()

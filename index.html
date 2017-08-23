@@ -7,10 +7,11 @@
     <script type="text/javascript" src="src/snakeHead.js"></script>
     <script type="text/javascript" src="src/tail.js"></script>
     <script type="text/javascript" src="src/food.js"></script>
+    <script type="text/javascript" src="adapters/usersAdapter.js"></script>
     <script type="text/javascript" src="src/user.js"></script>
+    <script type="text/javascript" src="handlers/usersHandler.js"></script>
     <script type="text/javascript" src="src/userForm.js"></script>
     <script type="text/javascript" src="src/game.js"></script>
-    <script type="text/javascript" src="adapters/usersAdapter.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
     <title>Snake</title>
 </head>
@@ -46,6 +47,10 @@
         margin-left: 100px;
         border: darkred solid 1px;
     }
+    #users-container{
+        position: absolute;
+        top: 500px;
+    }
 </style>
 
 <body>
@@ -53,6 +58,8 @@
     <div id="game-container">
     </div>
     <div id="user-form-container">
+    </div>
+    <div id="users-container">
     </div>
 </body>
 
