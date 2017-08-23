@@ -24,6 +24,10 @@ const Tail = (function(){
             return this.tailBlocks().map(tail => tail.render()).join('')
         }
 
+        coordinatesAndBearing() {
+          return {coordinates: this.coordinates, bearing: this.bearing}
+        }
+
         setBearingAndCoordinates() {
             let tailBearing = ''
             if (tailBlocks.length === 0) {

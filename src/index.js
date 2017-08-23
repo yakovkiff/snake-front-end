@@ -1,5 +1,7 @@
 $(document).ready(function(){
 
+	UserForm.renderOnPage()
+
 	const snakeHead = new SnakeHead()
 	let food = new Food()
 
@@ -67,7 +69,7 @@ $(document).ready(function(){
 			}
 
 
-},150)
+},75)
 
 
 
@@ -82,7 +84,7 @@ $(document).ready(function(){
 						snakeHead.bearing = "up"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
-						
+
 						console.log(moves)
 						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
@@ -102,7 +104,7 @@ $(document).ready(function(){
 						snakeHead.bearing = "left"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
-						
+
 						console.log(moves)
 						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
@@ -112,7 +114,7 @@ $(document).ready(function(){
 						snakeHead.bearing = "right"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
-					
+
 					console.log(moves)
 					snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
@@ -122,7 +124,7 @@ $(document).ready(function(){
 					break;
 			}
 		})
-						
+
 	// }
 
 })

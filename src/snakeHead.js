@@ -9,6 +9,15 @@ class SnakeHead {
     // at(x, y) {
     //     this.coordinates = [x, y];
     // }
+
+    coordinatesAndBearing() {
+      return {coordinates: this.coordinates, bearing: this.bearing}
+    }
+
+    tailCoordinatesAndBearing() {
+      return this.tailBlocks.map(tailBlock => tailBlock.coordinatesAndBearing())
+    }
+
     advance() {
         switch (this.bearing) {
             case "up":
