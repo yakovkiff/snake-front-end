@@ -7,7 +7,7 @@ class UserForm {
 
       <label for="user-email"> Email </label>
       <input type='text' id="user-email">
-      <input type='button' onlick='submitUser()' value='Submit'>
+      <input type='button' onClick='submitUser()' value='Submit'>
     </form>
     `
   }

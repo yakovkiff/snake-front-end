@@ -69,51 +69,58 @@ $(document).ready(function(){
 			}
 
 
-},75)
+},50)
 
 
 
 
 	// gives tailblocks the ability to follow the head and turn at the same location the head turned
 		$(document).on('keydown', function(event){
+			// check if snakeHead has changed bearing in current coordinates yet
+			if (snakeHead.bearingChangeChecker === false) {
 			switch (event.keyCode) {
 				case 38: //up arrow
 				// debugger
-					if (snakeHead.bearing !== "down" && snakeHead.bearing !== "up"){
+					if (gameOn && snakeHead.bearing !== "down" && snakeHead.bearing !== "up"){
 						console.log('pressed up and bearing =', snakeHead.bearing)
 						snakeHead.bearing = "up"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						// disallow bearing from changing until snakeHead advances again
+						snakeHead.bearingChangeChecker = true
 
 						console.log(moves)
 						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 40: //down arrow
-					if (snakeHead.bearing !== "up" && snakeHead.bearing !== "down"){
+					if (gameOn && snakeHead.bearing !== "up" && snakeHead.bearing !== "down"){
 						snakeHead.bearing = "down"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.bearingChangeChecker = true
 
 						console.log(moves)
 						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 37: // left arrow
-					if (snakeHead.bearing !== "right" && snakeHead.bearing !== "left"){
+					if (gameOn && snakeHead.bearing !== "right" && snakeHead.bearing !== "left"){
 						snakeHead.bearing = "left"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.bearingChangeChecker = true
 
 						console.log(moves)
 						snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
 					}
 					break;
 				case 39: //right arrow
-					if (snakeHead.bearing !== "left" && snakeHead.bearing !== "right"){
+					if (gameOn && snakeHead.bearing !== "left" && snakeHead.bearing !== "right"){
 						snakeHead.bearing = "right"
 						moves.push({coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice()})
 						snakeHead.tailBlocks.forEach( tailBlock => tailBlock.moves.push(moves.slice(-1)[0]) )
+						snakeHead.bearingChangeChecker = true
 
 					console.log(moves)
 					snakeHead.tailBlocks.forEach( tailBlock => console.log(tailBlock.id, tailBlock.moves))
@@ -121,8 +128,10 @@ $(document).ready(function(){
 					break;
 				case 32: //spacebar pauses the game
 					gameOn = !gameOn
+					// snakeHead.bearingChangeChecker = true
 					break;
 			}
+		}
 		})
 
 	// }

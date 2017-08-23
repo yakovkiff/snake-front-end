@@ -4,6 +4,7 @@ class SnakeHead {
         this.bearing = bearing
         this.coordinates = coordinates
         this.tailBlocks = []
+        this.bearingChangeChecker = false
     }
 
     // at(x, y) {
@@ -36,6 +37,8 @@ class SnakeHead {
                 this.coordinates[0] -= 15
                 break;
         }
+        // allows bearing to be changeable since the snakeHead has moved
+        this.bearingChangeChecker = false
     }
 
     tailSize() {
