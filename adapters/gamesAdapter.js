@@ -19,7 +19,7 @@ class gamesAdapter {
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({game: {user: game.user, id: game.id, tailSize: game.tailSize, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing()}})
+      body: JSON.stringify({game: {user: game.user, id: game.id, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing()}})
     }
     return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(resp=>console.log(resp))
   }
