@@ -28,6 +28,7 @@ $(document).ready(function() {
 
 
     let gameFlow = setInterval(function() {
+        $('#score-container').html(`Score: ${snakeHead.tailBlocks.length * 5 * snakeHead.tailBlocks.length}`)
         //snake dies if it hits the wall
         if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound ||
             snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {

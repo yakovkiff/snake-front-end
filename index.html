@@ -15,6 +15,9 @@
     <script type="text/javascript" src="adapters/gamesAdapter.js"></script>
     <script type="text/javascript" src="handlers/gamesHandler.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" rel="stylesheet">
+
     <title>Snake</title>
 </head>
 <style type="text/css">
@@ -53,11 +56,21 @@
         position: absolute;
         top: 500px;
     }
+    #user-form {
+        position: absolute;
+    }
+    .top-part {
+        position: absolute;
+        left: 3%;
+        text-align: center;
+    }
 </style>
 
-<body>
-    <h2>Snake</h2>
-    <h3 id="play-instructions">Hit spacebar to start game or pause game. Hit arrow keys to move.</h3>
+<body class="animated fadeIn">
+    <div class="top-part">
+        <h2>Snake</h2>
+        <h3 id="play-instructions">Hit spacebar to start game or pause game. Hit arrow keys to move.</h3>
+    </div>
     <div id="game-container">
     </div>
         <button id="save-game">Save</button>
@@ -66,6 +79,8 @@
     <div id="users-container">
     </div>
     <div id="saved-games-container">
+    </div>
+    <div id="score-container">        
     </div>
 </body>
 
