@@ -22,6 +22,8 @@ $(document).ready(function() {
     const moves = []
     let user = ''
 
+    $('#play-instructions').html("Hit spacebar to start game or pause game. Hit arrow keys to move.")
+
 
 
 
@@ -30,7 +32,9 @@ $(document).ready(function() {
         if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound ||
             snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {
             snakeAlive = false
+            $('#saved-games-container').html('')
             console.log('Snake has died. Hit refresh to start a new game')
+
         }
         //snake dies if it hits itself
         snakeHead.tailBlocks.some(function(tailBlock) {
@@ -77,6 +81,13 @@ $(document).ready(function() {
       game.user = user
       saveGame(game)
     }
+    })
+
+        //event listener for submit new user
+    $('#saved-games-container').click(function(event){
+      if (event.target.id === 'resume-saved-game') {
+        getGames()
+        }
     })
 
 
@@ -150,6 +161,7 @@ $(document).ready(function() {
         // to check this, check if game already has user
         // otherwise, render user form (when submit button is hit, saveGame is called)
         if (game.user) {
+            debugger
           saveGame(game)
         }
         else {

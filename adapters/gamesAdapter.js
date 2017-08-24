@@ -3,7 +3,7 @@ class GamesAdapter {
     this.baseUrl = 'http://localhost:3000/api/v1/games'
   }
 
-  getgames() {
+  getGames() {
     return fetch(this.baseUrl).then(resp => resp.json())
     //fetch is a get request to the URL
     //then it is parsed in JSON
