@@ -1,4 +1,4 @@
-class gamesAdapter {
+class GamesAdapter {
   constructor() {
     this.baseUrl = 'http://localhost:3000/api/v1/games'
   }
@@ -19,8 +19,9 @@ class gamesAdapter {
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({game: {user: game.user, id: game.id, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing()}})
+      body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing, id: game.id}})
     }
+    // debugger
     return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(resp=>console.log(resp))
   }
 

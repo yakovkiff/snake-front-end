@@ -9,13 +9,15 @@ const Game = (function() {
 	const games = []
 	return class Game {
 
-		constructor(user, snakeHead, tailSize = 0) {
+		constructor(user, snakeHead){//, tailSize = 0) {
 			this.user = user
+			this.id = nextId++
 			this.snakeHead = snakeHead
-			this.tailSize = tailSize
+			// this.tailSize = tailSize
 			this.constructor.gameOn = false
 			this.constructor.gameReady = false
 			games.push(this)
+			this.snakeCoordinatesAndBearing = this.snakeCoordinatesAndBearing()
 		}
 
 		static all() {
@@ -23,7 +25,7 @@ const Game = (function() {
 		}
 
 		snakeCoordinatesAndBearing() {
-			return {snake: snakeHead.coordinatesAndBearing(), tail: snakeHead.tailCoordinatesAndBearing()}
+			return {snake: this.snakeHead.coordinatesAndBearing(), tail: this.snakeHead.tailCoordinatesAndBearing()}
 		}
 
 	 	save() {

@@ -1,7 +1,7 @@
 class UserForm {
   static render() {
     return `
-    <form id="user-form" onsubmit="submitUser()">
+    <form id="user-form">
       <label for="user-name"> Name </label>
       <input type='text' id="user-name">
 
