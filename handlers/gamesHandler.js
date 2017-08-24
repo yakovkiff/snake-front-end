@@ -1,7 +1,7 @@
 gamesAdapt = new GamesAdapter()
 
 function saveGame(game){
-	event.preventDefault()	
+	event.preventDefault()
 
 	// gamesAdapt.createUser(name, email).then(function(){User.renderUsersWithNewUser()})
 	gamesAdapt.saveGame(game)
@@ -26,4 +26,3 @@ function retrieveGame() {
 	})
 
 }
-

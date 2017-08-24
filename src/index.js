@@ -22,7 +22,7 @@ $(document).ready(function() {
     const moves = []
     let user = ''
 
-    $('#play-instructions').html("Hit spacebar to start game or pause game. Hit arrow keys to move.")
+
 
 
 
@@ -86,7 +86,7 @@ $(document).ready(function() {
         //event listener for submit new user
     $('#saved-games-container').click(function(event){
       if (event.target.id === 'resume-saved-game') {
-        getGames()
+        retrieveGame()
         }
     })
 
@@ -150,6 +150,9 @@ $(document).ready(function() {
                       if (game.gameReady) {
                         event.preventDefault()
                         game.gameOn = !game.gameOn
+                        if (game.gameOn) {
+                          $('#play-instructions').hide()
+                        }
                       }
                     break;
             }
@@ -160,8 +163,9 @@ $(document).ready(function() {
         // if game has already been saved, immediately call saveGame()
         // to check this, check if game already has user
         // otherwise, render user form (when submit button is hit, saveGame is called)
+
+        //if user is on second save
         if (game.user) {
-            debugger
           saveGame(game)
         }
         else {

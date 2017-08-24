@@ -22,7 +22,7 @@ class GamesAdapter {
       body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing, id: game.id}})
     }
     return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(function(resp){
-      console.log(resp)
+      console.log("after database in gamesAdapter.js", resp)
       // call handler to get the game going again with this info
     })
   }

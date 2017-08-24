@@ -18,7 +18,7 @@ class UsersAdapter {
       },
       body: JSON.stringify({users: {name: name, email: email}})
     }
-    return fetch(this.baseUrl,userCreateParams).then( resp => resp.json() ).then(resp=>console.log(resp))
+    return fetch(this.baseUrl,userCreateParams).then( resp => resp.json() ).then(resp=>console.log("from usersAdapter.js #createUser", resp))
   }
 
 }
