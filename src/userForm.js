@@ -1,13 +1,13 @@
 class UserForm {
   static render() {
     return `
-    <form id="user-form">
+    <form id="user-form" onsubmit="submitUser()">
       <label for="user-name"> Name </label>
       <input type='text' id="user-name">
 
       <label for="user-email"> Email </label>
       <input type='text' id="user-email">
-      <input type='button' id='submit' onclick='submitUser()' value='Submit'>
+      <input type='submit' id='submit' value='Submit'>
     </form>
     `
   }

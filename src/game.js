@@ -13,6 +13,8 @@ const Game = (function() {
 			this.user = user
 			this.snakeHead = snakeHead
 			this.tailSize = tailSize
+			this.constructor.gameOn = false
+			this.constructor.gameReady = false
 			games.push(this)
 		}
 
@@ -25,8 +27,9 @@ const Game = (function() {
 		}
 
 	 	save() {
-			// this.snakeHead.tailSize()
+
 		}
+
 
 	}
 })()
