@@ -1,9 +1,10 @@
 $(document).ready(function() {
 
-    UserForm.renderOnPage()
+
     User.renderUsersAtStart()
 
     const snakeHead = new SnakeHead()
+    const game = new Game(snakeHead)
     let food = new Food()
 
     const playground = $('#game-container')
@@ -20,6 +21,8 @@ $(document).ready(function() {
 
     const moves = []
     let user = ''
+
+
 
 
     let gameFlow = setInterval(function() {
@@ -44,7 +47,7 @@ $(document).ready(function() {
         }
 
         //runs the actual playing of the game
-        if (snakeAlive && Game.gameOn) {
+        if (snakeAlive && game.gameOn) {
 
             snakeHead.advance()
 
@@ -66,15 +69,20 @@ $(document).ready(function() {
     }, 50)
 
     //event listener for submit new user
-    $('#submit').click(function(event){
-    	event.preventDefault()
+    $('#user-form-container').click(function(event){
+      if (event.target.id === 'submit-user') {
+      // debugger
+      game.gameReady = true
     	user = submitUser() //this returns a new User
+      game.user = user
+      saveGame(game)
+    }
     })
 
 
     // gives tailblocks the ability to follow the head and turn at the same location the head turned
     $(document).on('keydown', function(event) {
-        if (Game.gameOn) {
+        if (game.gameOn) {
             event.preventDefault()
         }
         // check if snakeHead has changed bearing in current coordinates yet
@@ -82,7 +90,7 @@ $(document).ready(function() {
             switch (event.keyCode) {
                 case 38: //up arrow
                     // debugger
-                    if (Game.gameOn && snakeHead.bearing !== "down" && snakeHead.bearing !== "up") {
+                    if (game.gameOn && snakeHead.bearing !== "down" && snakeHead.bearing !== "up") {
                         console.log('pressed up and bearing =', snakeHead.bearing)
                         snakeHead.bearing = "up"
                         moves.push({ coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice() })
@@ -95,7 +103,7 @@ $(document).ready(function() {
                     }
                     break;
                 case 40: //down arrow
-                    if (Game.gameOn && snakeHead.bearing !== "up" && snakeHead.bearing !== "down") {
+                    if (game.gameOn && snakeHead.bearing !== "up" && snakeHead.bearing !== "down") {
                         snakeHead.bearing = "down"
                         moves.push({ coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice() })
                         snakeHead.tailBlocks.forEach(tailBlock => tailBlock.moves.push(moves.slice(-1)[0]))
@@ -106,7 +114,7 @@ $(document).ready(function() {
                     }
                     break;
                 case 37: // left arrow
-                    if (Game.gameOn && snakeHead.bearing !== "right" && snakeHead.bearing !== "left") {
+                    if (game.gameOn && snakeHead.bearing !== "right" && snakeHead.bearing !== "left") {
                         snakeHead.bearing = "left"
                         moves.push({ coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice() })
                         snakeHead.tailBlocks.forEach(tailBlock => tailBlock.moves.push(moves.slice(-1)[0]))
@@ -117,7 +125,7 @@ $(document).ready(function() {
                     }
                     break;
                 case 39: //right arrow
-                    if (Game.gameOn && snakeHead.bearing !== "left" && snakeHead.bearing !== "right") {
+                    if (game.gameOn && snakeHead.bearing !== "left" && snakeHead.bearing !== "right") {
                         snakeHead.bearing = "right"
                         moves.push({ coordinates: snakeHead.coordinates.slice(), bearing: snakeHead.bearing.slice() })
                         snakeHead.tailBlocks.forEach(tailBlock => tailBlock.moves.push(moves.slice(-1)[0]))
@@ -128,20 +136,26 @@ $(document).ready(function() {
                     }
                     break;
                 case 32: //spacebar pauses the game
-                    event.preventDefault()
-                    if (Game.gameReady) {
-                        // if ($('#user-form').attr('style') === "display: none;") {
-                        Game.gameOn = !Game.gameOn
-                    }
-                    // snakeHead.bearingChangeChecker = true
+                      if (game.gameReady) {
+                        event.preventDefault()
+                        game.gameOn = !game.gameOn
+                      }
                     break;
             }
         }
     })
 
     $('#save-game').click(function() {
-        game = new Game(user, snakeHead)
-        saveGame(game)
+        // if game has already been saved, immediately call saveGame()
+        // to check this, check if game already has user
+        // otherwise, render user form (when submit button is hit, saveGame is called)
+        if (game.user) {
+          saveGame(game)
+        }
+        else {
+        UserForm.renderOnPage()
+        game.gameReady = false
+      }
     })
 
 })

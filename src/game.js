@@ -8,14 +8,13 @@ const Game = (function() {
 	let nextId = 1
 	const games = []
 	return class Game {
-
-		constructor(user, snakeHead){//, tailSize = 0) {
+ // left 285px, top 0px, bearing down
+		constructor(snakeHead, user){
 			this.user = user
 			this.id = nextId++
 			this.snakeHead = snakeHead
-			// this.tailSize = tailSize
-			this.constructor.gameOn = false
-			this.constructor.gameReady = false
+			this.gameOn = false
+			this.gameReady = true
 			games.push(this)
 			this.snakeCoordinatesAndBearing = this.snakeCoordinatesAndBearing()
 		}

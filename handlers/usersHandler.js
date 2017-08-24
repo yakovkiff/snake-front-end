@@ -1,7 +1,7 @@
 usersAdapt = new UsersAdapter()
 
 function submitUser(){
-	event.preventDefault()	
+	event.preventDefault()
 
 	let name = $('#user-name').val()
 	let email = $('#user-email').val()
@@ -12,11 +12,6 @@ function submitUser(){
 	event.target.parentElement.reset()
 
 	$('#user-form').hide()
-
-	Game.gameReady = true
-
-	alert("game will start in 1 second.")
-	setTimeout(time => Game.gameOn = true, 1000)
 
 	let user = new User(name, email)
 	return user
@@ -29,6 +24,6 @@ function submitUser(){
 //         json.forEach(function(userObj){
 //           let user = new User(userObj.name, userObj.email)
 //         })
-//       }).then(function(){User.appendToDom()})  
+//       }).then(function(){User.appendToDom()})
 //     }
-//  
+//
