@@ -21,8 +21,10 @@ class GamesAdapter {
       },
       body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing, id: game.id}})
     }
-    // debugger
-    return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(resp=>console.log(resp))
+    return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(function(resp){
+      console.log(resp)
+      // call handler to get the game going again with this info
+    })
   }
 
 }
