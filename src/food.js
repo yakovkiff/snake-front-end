@@ -1,5 +1,6 @@
 const Food = (function () {
 	let foodCount = 0
+	const animations = ['bounce', 'rubberBand', 'shake', 'tada', 'jello', 'jackInTheBox']
 
 	return class Food {
 		constructor(coordinates = []) {
@@ -19,7 +20,7 @@ const Food = (function () {
 
 		render() {
 			return `
-			<div class="food" id="food" style="left: ${this.coordinates[0]}px; top: ${this.coordinates[1]}px">
+			<div class="food animated ${animations[Math.floor(Math.random() * animations.length)]}" id="food" style="left: ${this.coordinates[0]}px; top: ${this.coordinates[1]}px">
 			</div>
 		`
 		}

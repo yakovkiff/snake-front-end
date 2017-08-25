@@ -23,26 +23,21 @@ $(document).ready(function() {
     let user = ''
 
 
-
+    const scoreContainer = $('#score-container')
+    const gifContainer   = $('.gif-container')
+    let displayingGif    = false
 
 
 
     let gameFlow = setInterval(function() {
-        $('#score-container').html(`Score: ${snakeHead.tailBlocks.length * 5 * snakeHead.tailBlocks.length}`)
         //snake dies if it hits the wall
-        if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound ||
-            snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {
-            snakeAlive = false
-            $('#saved-games-container').html('')
-            console.log('Snake has died. Hit refresh to start a new game')
-
+        if (notWithinBound()) {
+            handleGameLost()
         }
         //snake dies if it hits itself
         snakeHead.tailBlocks.some(function(tailBlock) {
-            if (snakeHead.coordinates[0] === tailBlock.coordinates[0] &&
-                snakeHead.coordinates[1] === tailBlock.coordinates[1]) {
-                snakeAlive = false
-                console.log('Snake has died. Hit refresh to start a new game')
+            if (snakeAteItself(tailBlock)) {
+                handleGameLost()
             }
         })
 
@@ -59,11 +54,18 @@ $(document).ready(function() {
             Tail.advanceAll()
 
             if (snakeEatsFood()) {
+
                 food.delete()
                 food = new Food()
                 playground.append(food.render())
 
                 let snakeTail = new Tail(snakeHead)
+
+                scoreContainer.html(`<div id="score" class="">Score:<span style="color: darkred">${game.score()}</span></div>`)
+
+                if (game.score() / 100 > 1 && !displayingGif) {
+                    displayGif("exited")
+                }
             }
             snakeHead.delete()
             Tail.deleteAll()
@@ -152,7 +154,12 @@ $(document).ready(function() {
                         event.preventDefault()
                         game.gameOn = !game.gameOn
                         if (game.gameOn) {
-                          $('#play-instructions').hide()
+                            gameFlow
+                          $('#play-instructions').addClass('animated fadeOutUp')
+                          $('#score').fadeIn()
+                          $('#save-game').fadeIn()
+                        }
+                        if (!game.gameOn) {
                         }
                       }
                     break;
@@ -174,6 +181,69 @@ $(document).ready(function() {
         game.gameReady = false
       }
     })
+
+    $('#message-container').click(function() {
+        if (event.target.nodeName === "BUTTON" && event.target.id === "new-game-btn") {
+            location.reload();
+        }
+        if (event.target.nodeName === "BUTTON" && event.target.id === "save-score-btn") {
+            submitUser()
+        }
+    })
+
+
+
+
+////////////////
+//
+// HELPER FUNCTIONS 
+//
+///////////////
+
+function notWithinBound() {
+    return snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound || snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound
+}
+
+function snakeAteItself(tailBlock) {
+    return snakeHead.coordinates[0] === tailBlock.coordinates[0] && snakeHead.coordinates[1] === tailBlock.coordinates[1]
+}
+function handleGameLost() {
+        snakeAlive = false
+        game.gameOn = false
+        $('#saved-games-container').html('')
+        $('#message').html(`Score was: ${snakeHead.tailBlocks.length * 5 * snakeHead.tailBlocks.length}`)
+        $('#message-container').show()
+        $('#save-game').hide()
+        clearInterval(gameFlow)
+        displayGif("sad")
+
+    }
+
+function displayGif(mood) {
+
+    gifContainer.show()
+
+    displayingGif = true
+
+    setTimeout(function(){
+        gifContainer.hide()
+        gifContainer.attr('style', `background-image: url(${ mood == "exited" ? getExitedGif() : getSadGif() })`)
+        displayingGif = false
+    }, 4000)
+
+}
+
+    function getSadGif() {
+        const sadGifs = ["https://media.giphy.com/media/5WmyaeDDlmb1m/giphy.gif", "https://media.giphy.com/media/xlnD8sWgnBBja/giphy.gif", "https://media.giphy.com/media/vcNsKUQ07oPLy/giphy.gif", "https://media.giphy.com/media/Ys2Z1pTvkGhH2/giphy.gif", "https://media.giphy.com/media/2WxWfiavndgcM/giphy.gif"]
+
+        return sadGifs[Math.floor(Math.random() * sadGifs.length)]
+    }
+
+    function getExitedGif() {
+        const exitedGifs = ['https://media.giphy.com/media/10ERZqYioLWJ6U/giphy.gif', 'https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif', 'https://media.giphy.com/media/l0MYxef0mpdcnQnvi/giphy.gif', 'https://media.giphy.com/media/jpXAdNRiwGL0k/giphy.gif', "https://media.giphy.com/media/msKNSs8rmJ5m/giphy.gif", "https://media.giphy.com/media/d4blihcFNkwE3fEI/giphy.gif"]
+
+        return exitedGifs[Math.floor(Math.random() * exitedGifs.length)]
+    }
 
 })
 //1 unit of movement is 15x15 pixels

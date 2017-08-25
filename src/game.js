@@ -29,7 +29,10 @@ const Game = (function() {
 	 	save() {
 
 		}
+		score() {
+			return this.snakeHead.tailBlocks.length * 5 * this.snakeHead.tailBlocks.length
 
+		}
 
 	}
 })()

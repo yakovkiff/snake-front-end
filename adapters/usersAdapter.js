@@ -10,13 +10,13 @@ class UsersAdapter {
 
   }
 
-  createUser(name, email) {
+  createUser(name, email, highScore) {
     const userCreateParams = {
       method: 'POST',
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({users: {name: name, email: email}})
+      body: JSON.stringify({users: {name: name, email: email, high_score: highScore}})
     }
     return fetch(this.baseUrl,userCreateParams).then( resp => resp.json() ).then(resp=>console.log("from usersAdapter.js #createUser", resp))
   }

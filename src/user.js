@@ -22,7 +22,10 @@ const User = (function() {
 
     static renderAll(){
       let usersHTML = users.map(user => user.render()).join('')
-      return `<ul id="users">${usersHTML}</ul>`
+      return `
+      <h3>High Scores</h3>
+      <ul id="users">${usersHTML}</ul>
+      `
     }
 
     static appendToDom(){
