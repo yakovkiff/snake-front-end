@@ -24,8 +24,6 @@ $(document).ready(function() {
 
 
     const scoreContainer = $('#score-container')
-    const gifContainer   = $('.gif-container')
-    let displayingGif    = false
 
 
 
@@ -215,34 +213,7 @@ function handleGameLost() {
         $('#message-container').show()
         $('#save-game').hide()
         clearInterval(gameFlow)
-        displayGif("sad")
 
-    }
-
-function displayGif(mood) {
-
-    gifContainer.show()
-
-    displayingGif = true
-
-    setTimeout(function(){
-        gifContainer.hide()
-        gifContainer.attr('style', `background-image: url(${ mood == "exited" ? getExitedGif() : getSadGif() })`)
-        displayingGif = false
-    }, 4000)
-
-}
-
-    function getSadGif() {
-        const sadGifs = ["https://media.giphy.com/media/5WmyaeDDlmb1m/giphy.gif", "https://media.giphy.com/media/xlnD8sWgnBBja/giphy.gif", "https://media.giphy.com/media/vcNsKUQ07oPLy/giphy.gif", "https://media.giphy.com/media/Ys2Z1pTvkGhH2/giphy.gif", "https://media.giphy.com/media/2WxWfiavndgcM/giphy.gif"]
-
-        return sadGifs[Math.floor(Math.random() * sadGifs.length)]
-    }
-
-    function getExitedGif() {
-        const exitedGifs = ['https://media.giphy.com/media/10ERZqYioLWJ6U/giphy.gif', 'https://media.giphy.com/media/XreQmk7ETCak0/giphy.gif', 'https://media.giphy.com/media/l0MYxef0mpdcnQnvi/giphy.gif', 'https://media.giphy.com/media/jpXAdNRiwGL0k/giphy.gif', "https://media.giphy.com/media/msKNSs8rmJ5m/giphy.gif", "https://media.giphy.com/media/d4blihcFNkwE3fEI/giphy.gif"]
-
-        return exitedGifs[Math.floor(Math.random() * exitedGifs.length)]
     }
 
 })

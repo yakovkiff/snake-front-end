@@ -109,16 +109,6 @@ position: absolute;
     font-size: -webkit-xxx-large;
     left: 195px;
     }
-    .gif-container {
-    position: absolute;
-    height: 114px;
-    width: 212px;
-    background-size: contain;
-    background-repeat-x: no-repeat;
-    left: 100px;
-    display: none;
-
-    }
     body {
     font-family: 'Roboto Slab', serif;
     }
@@ -135,8 +125,6 @@ position: absolute;
     <div>
         <h2 class="game-title">Snake</h2>
         <h3 id="play-instructions" class="">Hit spacebar to start game or pause game. Hit arrow keys to move.</h3>
-    </div>
-    <div class="gif-container" style="background-image: url('https://media.giphy.com/media/10ERZqYioLWJ6U/giphy.gif')">
     </div>
     <div id="game-container">
     </div>
@@ -161,13 +149,15 @@ position: absolute;
             <span class="message">
             </span>
             <div class="save-score-form">
+            <form>
                 <label>
                     Enter Name to Save Score:
                 </label>
                 <input id="username" type="text" placeholder="username">
-            </div>
             <button id="save-score-btn" class="btn btn-warning">Save Score</button>
             <button id="new-game-btn" class="btn btn-success">Start New Game</button>
+                </form>
+            </div>
         </div>
     </div>
 </body>
