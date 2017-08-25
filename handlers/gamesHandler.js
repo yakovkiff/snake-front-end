@@ -27,6 +27,17 @@ function retrieveGame() {
 
 }
 
-function resetGame() {
-	
+function gameExists() {
+
+	gamesAdapt.getGames().then(function(res) {
+
+			if (res.game.id === null) {
+				return false
+			}
+			else {
+				return true
+			}
+		// return false
+	})
+
 }

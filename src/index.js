@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     User.renderUsersAtStart()
 
+    if (gameExists()) {
+        $('#saved-games-container').html('<button id="resume-saved-game">Resume Saved Game</button>')
+    }
+
     const snakeHead = new SnakeHead()
     const game = new Game(snakeHead)
     let food = new Food()
@@ -87,7 +91,6 @@ $(document).ready(function() {
         //event listener for submit new user
     $('#saved-games-container').click(function(event){
       if (event.target.id === 'resume-saved-game') {
-        retrieveGame()
         }
     })
 

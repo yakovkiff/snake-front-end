@@ -1,5 +1,5 @@
 const User = (function() {
-  let nextId = 1
+  let nextId = 0
   const users = []
 	return class User {
 
