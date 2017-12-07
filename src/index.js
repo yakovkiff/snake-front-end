@@ -3,6 +3,10 @@ $(document).ready(function() {
 
     User.renderUsersAtStart()
 
+    if (gameExists()) {
+        $('#saved-games-container').html('<button id="resume-saved-game">Resume Saved Game</button>')
+    }
+
     const snakeHead = new SnakeHead()
     const game = new Game(snakeHead)
     let food = new Food()
@@ -23,25 +27,19 @@ $(document).ready(function() {
     let user = ''
 
 
-
+    const scoreContainer = $('#score-container')
 
 
 
     let gameFlow = setInterval(function() {
         //snake dies if it hits the wall
-        if (snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound ||
-            snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound) {
-            snakeAlive = false
-            $('#saved-games-container').html('')
-            console.log('Snake has died. Hit refresh to start a new game')
-
+        if (notWithinBound()) {
+            handleGameLost()
         }
         //snake dies if it hits itself
         snakeHead.tailBlocks.some(function(tailBlock) {
-            if (snakeHead.coordinates[0] === tailBlock.coordinates[0] &&
-                snakeHead.coordinates[1] === tailBlock.coordinates[1]) {
-                snakeAlive = false
-                console.log('Snake has died. Hit refresh to start a new game')
+            if (snakeAteItself(tailBlock)) {
+                handleGameLost()
             }
         })
 
@@ -58,11 +56,18 @@ $(document).ready(function() {
             Tail.advanceAll()
 
             if (snakeEatsFood()) {
+
                 food.delete()
                 food = new Food()
                 playground.append(food.render())
 
                 let snakeTail = new Tail(snakeHead)
+
+                scoreContainer.html(`<div id="score" class="">Score:<span style="color: darkred">${game.score()}</span></div>`)
+
+                if (game.score() / 100 > 1 && !displayingGif) {
+                    displayGif("exited")
+                }
             }
             snakeHead.delete()
             Tail.deleteAll()
@@ -86,7 +91,6 @@ $(document).ready(function() {
         //event listener for submit new user
     $('#saved-games-container').click(function(event){
       if (event.target.id === 'resume-saved-game') {
-        retrieveGame()
         }
     })
 
@@ -151,7 +155,12 @@ $(document).ready(function() {
                         event.preventDefault()
                         game.gameOn = !game.gameOn
                         if (game.gameOn) {
-                          $('#play-instructions').hide()
+                            gameFlow
+                          $('#play-instructions').addClass('animated fadeOutUp')
+                          $('#score').fadeIn()
+                          $('#save-game').fadeIn()
+                        }
+                        if (!game.gameOn) {
                         }
                       }
                     break;
@@ -173,6 +182,42 @@ $(document).ready(function() {
         game.gameReady = false
       }
     })
+
+    $('#message-container').click(function() {
+        if (event.target.nodeName === "BUTTON" && event.target.id === "new-game-btn") {
+            location.reload();
+        }
+        if (event.target.nodeName === "BUTTON" && event.target.id === "save-score-btn") {
+            submitUser()
+        }
+    })
+
+
+
+
+////////////////
+//
+// HELPER FUNCTIONS 
+//
+///////////////
+
+function notWithinBound() {
+    return snakeHead.coordinates[0] <= leftBound || snakeHead.coordinates[0] >= rightBound || snakeHead.coordinates[1] <= topBound || snakeHead.coordinates[1] >= bottomBound
+}
+
+function snakeAteItself(tailBlock) {
+    return snakeHead.coordinates[0] === tailBlock.coordinates[0] && snakeHead.coordinates[1] === tailBlock.coordinates[1]
+}
+function handleGameLost() {
+        snakeAlive = false
+        game.gameOn = false
+        $('#saved-games-container').html('')
+        $('#message').html(`Score was: ${snakeHead.tailBlocks.length * 5 * snakeHead.tailBlocks.length}`)
+        $('#message-container').show()
+        $('#save-game').hide()
+        clearInterval(gameFlow)
+
+    }
 
 })
 //1 unit of movement is 15x15 pixels

@@ -1,12 +1,13 @@
 const User = (function() {
-  let nextId = 1
+  let nextId = 0
   const users = []
 	return class User {
 
-		constructor(name, email) {
+		constructor(name, email, highScore = 0) {
       this.name = name
       this.email = email
 			this.games = []
+      this.highScore = highScore
       this.id = nextId++
       users.push(this)
       // this.constructor.renderUsers()
@@ -17,12 +18,15 @@ const User = (function() {
     }
 
     render(){
-      return `<li id="${this.id}">Name: ${this.name}, HighScore:___</li>`
+      return `<li id="${this.id}">Name: ${this.name}, HighScore: ${this.HighScore}</li>`
     }
 
     static renderAll(){
       let usersHTML = users.map(user => user.render()).join('')
-      return `<ul id="users">${usersHTML}</ul>`
+      return `
+      <h3>High Scores</h3>
+      <ul id="users">${usersHTML}</ul>
+      `
     }
 
     static appendToDom(){
@@ -33,7 +37,7 @@ const User = (function() {
       usersAdapt = new UsersAdapter()
       usersAdapt.getUsers().then(function(json){
         json.forEach(function(userObj){
-          let user = new User(userObj.name, userObj.email)
+          let user = new User(userObj.name, userObj.email, userObj.highScore)
         })
       }).then(function(){User.appendToDom()})  
     }
@@ -43,7 +47,7 @@ const User = (function() {
       usersAdapt.getUsers().then(function(jsonArray){
         let userObj = jsonArray[jsonArray.length-1]
 
-        let user = new User(userObj.name, userObj.email)
+        let user = new User(userObj.name, userObj.email, userObj.highScore)
       }).then(function(){User.appendToDom()}) 
     }
   

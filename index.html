@@ -15,6 +15,10 @@
     <script type="text/javascript" src="adapters/gamesAdapter.js"></script>
     <script type="text/javascript" src="handlers/gamesHandler.js"></script>
     <script type="text/javascript" src="src/index.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:100,300,400" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.css" rel="stylesheet">
+
     <title>Snake</title>
 </head>
 <style type="text/css">
@@ -48,24 +52,119 @@
         width: 600px;
         margin-left: 100px;
         border: darkred solid 1px;
+        margin-top: 14px;
     }
     #users-container{
-        position: absolute;
-        top: 500px;
+position: absolute;
+    top: 500px;
+    left: 280px;
+    text-align: center;
     }
+    #user-form {
+        position: absolute;
+    }
+    .game-title {
+        position: absolute;
+        left: 344px;
+        text-align: center;
+    }
+    #users {
+
+    }
+    .game-lost {
+    }
+    .message {
+        font-size: 24px;
+        display: block;
+    }
+    #play-instructions {
+        position: absolute;
+        left: 63px;
+        top: 5%;
+        text-align: center;
+    }
+    #score-container {
+    position: absolute;
+    left: 343px;
+    font-size: 23px;
+    top: 55px;
+    }
+    #save-game {
+    position: absolute;
+    left: 600px;
+    top: 40px;      
+    }
+    .save-score-form {
+        font-size: 16px;
+    }
+    #message-container {
+        display: none;
+    position: absolute;
+    background: rgba(128, 128, 128, 0.3);
+    width: 399px;
+    height: 265px;
+    text-align: center;
+    top: 183px;
+    padding: 44px;
+    font-size: -webkit-xxx-large;
+    left: 195px;
+    }
+    #username {
+        display: block;
+        margin-left: 62px;
+        margin-bottom: 16px;
+        margin-top: 10px;
+    }
+    body {
+    font-family: 'Roboto Slab', serif;
+    }
+    button {
+        margin-left: 10px;
+    }
+    ul {
+  list-style-type: none;
+}
+
 </style>
 
-<body>
-    <h2>Snake</h2>
-    <h3 id="play-instructions">Hit spacebar to start game or pause game. Hit arrow keys to move.</h3>
+<body class="animated fadeIn">
+    <div>
+        <h2 class="game-title">Snake</h2>
+        <h3 id="play-instructions" class="">Hit spacebar to start game or pause game. Hit arrow keys to move.</h3>
+    </div>
     <div id="game-container">
     </div>
-        <button id="save-game">Save</button>
+        <button id="save-game" class="btn btn-lg btn-warning animated fadeInUp" style="display: none">Save</button>
     <div id="user-form-container">
     </div>
-    <div id="users-container">
-    </div>
+<!--     <div id="users-container">
+        <div>
+            <h3>High Scores</h3>
+        </div>
+    </div> -->
     <div id="saved-games-container">
+    </div>
+    <div id="score-container">  
+        <div id="score" class="animated fadeInUp" style="display: none">Score:<span style="color: darkred">0</span></div>      
+    </div>
+    <div id="message-container" class="game-lost animated bounce">
+        <div>
+            <div class="title">
+                Game Over
+            </div>
+            <span class="message">
+            </span>
+            <div class="save-score-form">
+            <form>
+                <label>
+                    Enter Name to Save Score:
+                </label>
+                <input id="username" type="text" placeholder="username">
+            <button id="save-score-btn" class="btn btn-warning">Save Score</button>
+            <button id="new-game-btn" class="btn btn-success">Start New Game</button>
+                </form>
+            </div>
+        </div>
     </div>
 </body>
 

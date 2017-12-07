@@ -19,7 +19,7 @@ class GamesAdapter {
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing, id: game.id}})
+      body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing(), id: game.id}})
     }
     return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(function(resp){
       console.log("after database in gamesAdapter.js", resp)

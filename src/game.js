@@ -16,7 +16,6 @@ const Game = (function() {
 			this.gameOn = false
 			this.gameReady = true
 			games.push(this)
-			this.snakeCoordinatesAndBearing = this.snakeCoordinatesAndBearing()
 		}
 
 		static all() {
@@ -30,7 +29,10 @@ const Game = (function() {
 	 	save() {
 
 		}
+		score() {
+			return this.snakeHead.tailBlocks.length * 5 * this.snakeHead.tailBlocks.length
 
+		}
 
 	}
 })()
