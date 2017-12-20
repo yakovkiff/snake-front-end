@@ -19,7 +19,7 @@ function saveGame(game){
 
 function retrieveGame() {
 
-	gamesAdapt.getGames().then(function(res) {
+	gamesAdapt.getGame().then(function(res) {
 		console.log("this is from database", res)
 		// game = new Game()
 
@@ -30,7 +30,7 @@ function retrieveGame() {
 
 function gameExists() {
 
-	gamesAdapt.getGames().then(function(res) {
+	gamesAdapt.getGame().then(function(res) {
 
 			if (res.game.id === null) {
 				return false

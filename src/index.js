@@ -92,7 +92,8 @@ $(document).ready(function() {
         //event listener for submit new user
     $('#saved-games-container').click(function(event){
       if (event.target.id === 'resume-saved-game') {
-        }
+        retrieveGame()
+      }
     })
 
 
