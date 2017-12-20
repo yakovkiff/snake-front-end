@@ -1,9 +1,10 @@
-gamesAdapt = new GamesAdapter()
+const gamesAdapt = new GamesAdapter()
 
 function saveGame(game){
 	event.preventDefault()
 
 	// gamesAdapt.createUser(name, email).then(function(){User.renderUsersWithNewUser()})
+	console.log("about to save in gamesHandler")
 	gamesAdapt.saveGame(game)
 
 

@@ -11,15 +11,20 @@ class GamesAdapter {
   }
 
   saveGame(game) {
-    if (!game.savedYet) {
-
-    };
+    // if (!game.savedYet) {
+    //
+    // };
+    console.log("in saveGame in gamesAdapter")
     const gameCreateParams = {
       method: 'POST',
       headers: {
         'Content-Type':'application/json'
       },
-      body: JSON.stringify({game: {user: game.user, snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing(), id: game.id}})
+      body: JSON.stringify({
+        // user: game.user,
+        snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing()
+        // id: game.id
+      })
     }
     return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(function(resp){
       console.log("after database in gamesAdapter.js", resp)

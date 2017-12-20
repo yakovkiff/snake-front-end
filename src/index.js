@@ -1,11 +1,11 @@
 $(document).ready(function() {
 
 
-    User.renderUsersAtStart()
+    // User.renderUsersAtStart()
 
-    if (gameExists()) {
-        $('#saved-games-container').html('<button id="resume-saved-game">Resume Saved Game</button>')
-    }
+    // if (gameExists()) {
+    //     $('#saved-games-container').html('<button id="resume-saved-game">Resume Saved Game</button>')
+    // }
 
     const snakeHead = new SnakeHead()
     const game = new Game(snakeHead)
@@ -18,6 +18,7 @@ $(document).ready(function() {
 
     let snakeAlive = true
 
+//boundaries for container for notWithinBound
     let leftBound = -1
     let rightBound = 586
     let topBound = -1
@@ -174,13 +175,14 @@ $(document).ready(function() {
         // otherwise, render user form (when submit button is hit, saveGame is called)
 
         //if user is on second save
-        if (game.user) {
+        // if (game.user) {
+          console.log("just clicked on save game button")
           saveGame(game)
-        }
-        else {
-        UserForm.renderOnPage()
-        game.gameReady = false
-      }
+        // }
+        // else {
+        // UserForm.renderOnPage()
+        // game.gameReady = false
+      // }
     })
 
     $('#message-container').click(function() {
@@ -197,7 +199,7 @@ $(document).ready(function() {
 
 ////////////////
 //
-// HELPER FUNCTIONS 
+// HELPER FUNCTIONS
 //
 ///////////////
 
