@@ -18,7 +18,7 @@ function retrieveGame() {
 
 	gamesAdapt.getGame().then(function(res) {
 		console.log("this is from database", res)
-		// game = new Game()
+		game = new Game()
 
 
 	})
