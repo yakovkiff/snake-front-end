@@ -2,18 +2,22 @@ const Tail = (function(){
     let tailBlocks = []
     let idCounter = 0
     return class Tail {
-        constructor(snakeHead) {
-            this.snakeHead = snakeHead
-            this.snakeHead.tailBlocks.push(this)
-            if (tailBlocks.length === 0) {
-              this.moves = []
-            }
-            else {
-              this.moves = tailBlocks[tailBlocks.length - 1].moves.slice()
-            }
+        // the bearing and coodinates paramaters are for creating tail from saved game
+        constructor(snakeHead, bearing = null, coordinates = null) {
+          this.snakeHead = snakeHead
+          this.snakeHead.tailBlocks.push(this)
+          if (tailBlocks.length === 0) {
+            this.moves = []
+          }
+          else {
+            this.moves = tailBlocks[tailBlocks.length - 1].moves.slice()
+          }
+          // create tail from eating food
+          if (!bearing) {
             this.setBearingAndCoordinates()
-            tailBlocks.push(this)
-            this.id = idCounter++
+          }
+          tailBlocks.push(this)
+          this.id = idCounter++
         }
 
         static tailBlocks(){

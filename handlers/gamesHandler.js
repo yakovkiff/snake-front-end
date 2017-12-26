@@ -18,9 +18,9 @@ function retrieveGame() {
 
 	gamesAdapt.getGame().then(function(res) {
 		console.log("this is from database", res)
-		game = new Game()
-
-
+		const snakeHead = new SnakeHead(res.snakeHead.bearing, [res.snakeHead.x, res.snakeHead.y])
+		res.tail.forEach(tailBlock => new Tail(snakeHead, tailBlock.bearing, [tailBlock.x, tailBlock.y]))
+		new Game(snakeHead)
 	})
 
 }

@@ -20,7 +20,7 @@ function playGame(savedGame = null) {
   playground.append(food.render())
   // let snakeHeadEl = $("#head")
 
-  let snakeAlive = true
+  // let snakeAlive = true
 
 //boundaries for container for notWithinBound
   let leftBound = -1
@@ -45,26 +45,25 @@ function playGame(savedGame = null) {
       }
 
       //runs the actual playing of the game
-      if (snakeAlive && !game.paused) {
+      if (!game.paused) {
 
           snakeHead.advance()
           snakeHead.advanceTail()
-          // Tail.advanceAll()
 
           if (snakeEatsFood()) {
+            food.delete()
+            food = new Food()
+            playground.append(food.render())
 
-              food.delete()
-              food = new Food()
-              playground.append(food.render())
+            new Tail(snakeHead)
 
-              new Tail(snakeHead)
+            scoreContainer.html(`<div id="score" class="">Score:<span style="color: darkred">${game.score()}</span></div>`)
 
-              scoreContainer.html(`<div id="score" class="">Score:<span style="color: darkred">${game.score()}</span></div>`)
-
-              if (game.score() / 100 > 1 && !displayingGif) {
-                  displayGif("exited")
-              }
+            if (game.score() / 100 > 1 && !displayingGif) {
+                displayGif("exited")
+            }
           }
+
           snakeHead.remove()
           Tail.removeAll()
           playground.append(snakeHead.render() + snakeHead.renderTail())
@@ -84,13 +83,20 @@ function playGame(savedGame = null) {
   }
   })
 
+  function displayGame(savedGame) {
+    const playground = $('#game-container')
+    let food = new Food()
+    playground.append(savedGame.snakeHead.render() + savedGame.snakeHead.renderTail() + food.render())
+  }
+
       //event listener for submit new user
   $('#saved-games-container').click(function(event){
     if (event.target.id === 'resume-saved-game') {
       clearInterval(gameFlow)
       playground.empty()
       retrieveGame()
-      playGame(Game.last())
+      displayGame(Game.last())
+      // playGame(Game.last())
     }
   })
 
