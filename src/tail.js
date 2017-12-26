@@ -5,16 +5,22 @@ const Tail = (function(){
         // the bearing and coodinates paramaters are for creating tail from saved game
         constructor(snakeHead, bearing = null, coordinates = null) {
           this.snakeHead = snakeHead
+          // create tail from eating food
+          if (!bearing) {
+            this.setBearingAndCoordinates()
+          } else {
+            this.bearing = bearing
+            this.coordinates = coordinates
+          }
+          
           if (this.snakeHead.tailBlocks.length === 0) {
             this.moves = []
           } else {
             this.moves = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].moves.slice()
           }
-          // create tail from eating food
-          if (!bearing) {
-            this.setBearingAndCoordinates()
-          }
+
           this.snakeHead.tailBlocks.push(this)
+
           // this line necessary anymore?
           tailBlocks.push(this)
           this.id = idCounter++
