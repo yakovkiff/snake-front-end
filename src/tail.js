@@ -21,7 +21,7 @@ const Tail = (function(){
         }
 
         static renderAll(){
-            return this.tailBlocks().map(tail => tail.render()).join('')
+          return this.tailBlocks().map(tail => tail.render()).join('')
         }
 
         coordinatesAndBearing() {
@@ -64,6 +64,7 @@ const Tail = (function(){
         // at(x, y) {
         //     this.coordinates = [x, y];
         // }
+        // phase out advanceAll because it does for all snakeHeads
         static advanceAll() {
           tailBlocks.forEach(tailBlock => tailBlock.advance())
         }
@@ -103,7 +104,7 @@ const Tail = (function(){
             </div>
         	`
         }
-        static deleteAll() {
+        static removeAll() {
             $('.tail').remove()
         }
 

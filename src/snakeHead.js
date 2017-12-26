@@ -20,25 +20,29 @@ class SnakeHead {
     }
 
     advance() {
-        switch (this.bearing) {
-            case "up":
-                this.coordinates[1] -= 15
-                break;
+      switch (this.bearing) {
+          case "up":
+              this.coordinates[1] -= 15
+              break;
 
-            case "right":
-                this.coordinates[0] += 15
-                break;
+          case "right":
+              this.coordinates[0] += 15
+              break;
 
-            case "down":
-                this.coordinates[1] += 15
-                break;
+          case "down":
+              this.coordinates[1] += 15
+              break;
 
-            case "left":
-                this.coordinates[0] -= 15
-                break;
-        }
-        // allows bearing to be changeable since the snakeHead has moved
-        this.bearingChangeChecker = false
+          case "left":
+              this.coordinates[0] -= 15
+              break;
+      }
+      // allows bearing to be changeable since the snakeHead has moved
+      this.bearingChangeChecker = false
+    }
+
+    advanceTail() {
+      this.tailBlocks.forEach(tailBlock => tailBlock.advance())
     }
 
     tailSize() {
@@ -53,8 +57,12 @@ class SnakeHead {
     	`
     }
 
-    delete() {
-        $('#head').remove()
+    renderTail() {
+      return this.tailBlocks.map(tail => tail.render()).join('')
+    }
+
+    remove() {
+      $('#head').remove()
     }
 
 }

@@ -13,13 +13,14 @@ const Game = (function() {
 			this.user = user
 			this.id = nextId++
 			this.snakeHead = snakeHead
-			this.gameOn = false
+			this.paused = true
+			this.over = false
 			this.gameReady = true
 			games.push(this)
 		}
 
-		static all() {
-			return games
+		static last() {
+			return games[games.length - 1]
 		}
 
 		snakeCoordinatesAndBearing() {
