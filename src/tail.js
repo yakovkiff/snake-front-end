@@ -5,25 +5,27 @@ const Tail = (function(){
         // the bearing and coodinates paramaters are for creating tail from saved game
         constructor(snakeHead, bearing = null, coordinates = null) {
           this.snakeHead = snakeHead
-          this.snakeHead.tailBlocks.push(this)
-          if (tailBlocks.length === 0) {
+          if (this.snakeHead.tailBlocks.length === 0) {
             this.moves = []
-          }
-          else {
-            this.moves = tailBlocks[tailBlocks.length - 1].moves.slice()
+          } else {
+            this.moves = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].moves.slice()
           }
           // create tail from eating food
           if (!bearing) {
             this.setBearingAndCoordinates()
           }
+          this.snakeHead.tailBlocks.push(this)
+          // this line necessary anymore?
           tailBlocks.push(this)
           this.id = idCounter++
         }
 
+        // necessary?
         static tailBlocks(){
             return tailBlocks
         }
 
+        // necessary?
         static renderAll(){
           return this.tailBlocks().map(tail => tail.render()).join('')
         }
@@ -34,14 +36,14 @@ const Tail = (function(){
 
         setBearingAndCoordinates() {
             let tailBearing = ''
-            if (tailBlocks.length === 0) {
+            if (this.snakeHead.tailBlocks.length === 0) {
                 this.bearing = this.snakeHead.bearing.slice()
                 this.coordinates = this.snakeHead.coordinates.slice()
             }
             else {
               // debugger
-                this.bearing = tailBlocks[tailBlocks.length - 1].bearing.slice()
-                this.coordinates = tailBlocks[tailBlocks.length - 1].coordinates.slice()
+                this.bearing = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].bearing.slice()
+                this.coordinates = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].coordinates.slice()
 
             }
             switch (this.bearing) {
@@ -74,7 +76,7 @@ const Tail = (function(){
         }
 
         advance() {
-
+          // review these Ifs
           if (this.moves.length > 0) {
             // debugger
             if (this.coordinates[0] === this.moves[0].coordinates[0] &&
