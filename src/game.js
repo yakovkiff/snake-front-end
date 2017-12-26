@@ -19,6 +19,10 @@ const Game = (function() {
 			games.push(this)
 		}
 
+		static count() {
+			return nextId - 1
+		}
+
 		static last() {
 			return games[games.length - 1]
 		}

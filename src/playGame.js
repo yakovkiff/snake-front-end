@@ -92,11 +92,23 @@ function playGame(savedGame = null) {
       //event listener for submit new user
   $('#saved-games-container').click(function(event){
     if (event.target.id === 'resume-saved-game') {
+      // const numGames = Game.count()
+      console.log('clicked resume save game')
       clearInterval(gameFlow)
       playground.empty()
       retrieveGame()
-      displayGame(Game.last())
-      // playGame(Game.last())
+        .then(function(game) {
+          console.log('retrieved game: ' + game)
+          const snakeHead = new SnakeHead(game.snakeHead.bearing, game.snakeHead.coordinates)
+      		game.tail.forEach(tailBlock => new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates))
+      		new Game(snakeHead)
+      		console.log('snakeHead: ' + snakeHead)
+      		snakeHead.tailBlocks.forEach(tail => console.log('tail: ' + tail))
+          console.log("last game's snakeHead's coordinates are" + Game.last().snakeHead.coordinates)
+          displayGame(Game.last())
+          // playGame(Game.last())
+        })
+
     }
   })
 
