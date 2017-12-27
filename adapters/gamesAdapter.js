@@ -11,9 +11,6 @@ class GamesAdapter {
   }
 
   saveGame(game) {
-    // if (!game.savedYet) {
-    //
-    // };
     console.log("in saveGame in gamesAdapter")
     const gameCreateParams = {
       method: 'POST',
@@ -26,10 +23,7 @@ class GamesAdapter {
         // id: game.id
       })
     }
-    return fetch(this.baseUrl, gameCreateParams).then( resp => resp.json() ).then(function(resp){
-      console.log("after database in gamesAdapter.js", resp)
-      // call handler to get the game going again with this info
-    })
+    return fetch(this.baseUrl, gameCreateParams).then(resp => resp.json())
   }
 
 }

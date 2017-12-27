@@ -5,13 +5,12 @@ function saveGame(game){
 
 	// gamesAdapt.createUser(name, email).then(function(){User.renderUsersWithNewUser()})
 	console.log("about to save in gamesHandler")
-	gamesAdapt.saveGame(game)
-
-
+	return gamesAdapt.saveGame(game)
+		.then(function(resp) {
+			console.log('resp is: ', resp)
+			alert("Game Saved.")
+		})
 	Game.gameOn = false
-
-	alert("Game Saved.")
-
 }
 
 function retrieveGame() {
