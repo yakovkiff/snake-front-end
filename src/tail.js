@@ -82,7 +82,14 @@ const Tail = (function(){
         }
 
         advance() {
-          // review these Ifs
+          console.log(`TAILBLOCK ${this.id}`)
+          console.log('tailblock bearing: ' + this.bearing)
+          console.log('tailBlock coordinates: ' + this.coordinates)
+          console.log('tailBlock moves: ')
+          this.moves.forEach(move => {
+            console.log('   move bearing: ' + move.bearing)
+            console.log('   move coordinates: ' + move.coordinates)
+          })
           if (this.moves.length > 0) {
             // debugger
             if (this.coordinates[0] === this.moves[0].coordinates[0] &&
