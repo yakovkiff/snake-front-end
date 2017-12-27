@@ -15,12 +15,10 @@ function saveGame(game){
 }
 
 function retrieveGame() {
-
 	return gamesAdapt.getGame().then(function(game) {
 		console.log("this is from database", game)
 		return game
 	})
-
 }
 
 function gameExists() {

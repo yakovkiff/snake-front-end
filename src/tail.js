@@ -3,20 +3,20 @@ const Tail = (function(){
     let idCounter = 0
     return class Tail {
         // the bearing and coodinates paramaters are for creating tail from saved game
-        constructor(snakeHead, bearing = null, coordinates = null) {
+        constructor(snakeHead, bearing = null, coordinates = null, moves = null) {
           this.snakeHead = snakeHead
           // create tail from eating food
           if (!bearing) {
             this.setBearingAndCoordinates()
+            if (this.snakeHead.tailBlocks.length === 0) {
+              this.moves = []
+            } else {
+              this.moves = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].moves.slice()
+            }
           } else {
             this.bearing = bearing
             this.coordinates = coordinates
-          }
-          
-          if (this.snakeHead.tailBlocks.length === 0) {
-            this.moves = []
-          } else {
-            this.moves = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].moves.slice()
+            this.moves = moves
           }
 
           this.snakeHead.tailBlocks.push(this)
@@ -28,7 +28,7 @@ const Tail = (function(){
 
         // necessary?
         static tailBlocks(){
-            return tailBlocks
+          return tailBlocks
         }
 
         // necessary?
@@ -36,8 +36,8 @@ const Tail = (function(){
           return this.tailBlocks().map(tail => tail.render()).join('')
         }
 
-        coordinatesAndBearing() {
-          return {coordinates: this.coordinates, bearing: this.bearing}
+        coordinatesBearingAndMoves() {
+          return {coordinates: this.coordinates, bearing: this.bearing, moves: this.moves}
         }
 
         setBearingAndCoordinates() {

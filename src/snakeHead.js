@@ -16,7 +16,7 @@ class SnakeHead {
     }
 
     tailCoordinatesAndBearing() {
-      return this.tailBlocks.map(tailBlock => tailBlock.coordinatesAndBearing())
+      return this.tailBlocks.map(tailBlock => tailBlock.coordinatesBearingAndMoves())
     }
 
     advance() {

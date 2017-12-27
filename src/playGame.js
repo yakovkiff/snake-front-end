@@ -1,18 +1,15 @@
 function playGame(savedGame = null) {
 
-  // var game, snakeHead
-  //
-  // if (!savedGame) {
-  //   snakeHead = new SnakeHead()
-  //   game = new Game(snakeHead)
-  // } else {
-  //   game = savedGame.game
-  //   snakeHead = savedGame.snakeHead
-  //
-  // }
+  var game, snakeHead
 
-  const snakeHead = new SnakeHead()
-  const game = new Game(snakeHead)
+  if (!savedGame) {
+    snakeHead = new SnakeHead()
+    game = new Game(snakeHead)
+  } else {
+    console.log("you are attempting to play a saved game")
+    game = savedGame
+    snakeHead = savedGame.snakeHead
+  }
 
   let food = new Food()
 
@@ -85,8 +82,7 @@ function playGame(savedGame = null) {
 
   function displayGame(savedGame) {
     const playground = $('#game-container')
-    let food = new Food()
-    playground.append(savedGame.snakeHead.render() + savedGame.snakeHead.renderTail() + food.render())
+    playground.append(savedGame.snakeHead.render() + savedGame.snakeHead.renderTail())
   }
 
       //event listener for submit new user
@@ -97,17 +93,16 @@ function playGame(savedGame = null) {
       clearInterval(gameFlow)
       playground.empty()
       retrieveGame()
-        .then(function(game) {
-          console.log('retrieved game: ' + game)
-          const snakeHead = new SnakeHead(game.snakeHead.bearing, game.snakeHead.coordinates)
-      		game.tail.forEach(tailBlock => new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates))
-      		new Game(snakeHead)
-          console.log("last game's snakeHead's coordinates are" + Game.last().snakeHead.coordinates)
-          Game.last().snakeHead.tailBlocks.forEach(tail => console.log("last game's tail's bearing is" + tail.bearing))
-          displayGame(Game.last())
-          // playGame(Game.last())
+        .then(function(gameData) {
+          console.log('gameData is: ', gameData)
+          const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates)
+      		gameData.tail.forEach(tailBlock => new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.moves))
+      		const game = new Game(snakeHead)
+          console.log("last game's snakeHead's coordinates are" + game.snakeHead.coordinates)
+          game.snakeHead.tailBlocks.forEach(tail => console.log("last game's tail's bearing is" + tail.bearing))
+          displayGame(game)
+          playGame(game)
         })
-
     }
   })
 
