@@ -105,6 +105,7 @@ function playGame(savedGame = null) {
       retrieveGame()
         .then(function(gameData) {
           console.log('gameData is: ', gameData)
+          // put moves in as 3rd arg in line below
           const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates)
       		gameData.tail.forEach(tailBlock => {
             new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.moves)
@@ -136,25 +137,25 @@ function playGame(savedGame = null) {
           case 38: //up arrow
               if (!game.paused && snakeHead.bearing !== "down" && snakeHead.bearing !== "up") {
                 snakeHead.bearing = "up"
-                recordMove()
+                snakeHead.recordMove()
               }
               break;
           case 40: //down arrow
               if (!game.paused && snakeHead.bearing !== "up" && snakeHead.bearing !== "down") {
                 snakeHead.bearing = "down"
-                recordMove()
+                snakeHead.recordMove()
               }
               break;
           case 37: // left arrow
               if (!game.paused && snakeHead.bearing !== "right" && snakeHead.bearing !== "left") {
                 snakeHead.bearing = "left"
-                recordMove()
+                snakeHead.recordMove()
               }
               break;
           case 39: //right arrow
               if (!game.paused && snakeHead.bearing !== "left" && snakeHead.bearing !== "right") {
                 snakeHead.bearing = "right"
-                recordMove()
+                snakeHead.recordMove()
               }
               break;
           case 32: //spacebar pauses the game

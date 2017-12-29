@@ -3,20 +3,20 @@ const Tail = (function(){
     let idCounter = 0
     return class Tail {
         // the bearing and coodinates paramaters are for creating tail from saved game
-        constructor(snakeHead, bearing = null, coordinates = null, moves = null) {
+        constructor(snakeHead, bearing = null, coordinates = null, nextMoveIndex = null) {
           this.snakeHead = snakeHead
           // create tail from eating food
           if (!bearing) {
             this.setBearingAndCoordinates()
             if (this.snakeHead.tailBlocks.length === 0) {
-              this.moves = []
+              this.nextMoveIndex = null
             } else {
-              this.moves = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].moves.slice()
+              this.nextMoveIndex = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].nextMoveIndex
             }
           } else {
             this.bearing = bearing
             this.coordinates = coordinates
-            this.moves = moves
+            this.nextMoveIndex = nextMoveIndex
           }
 
           this.snakeHead.tailBlocks.push(this)
@@ -72,50 +72,45 @@ const Tail = (function(){
 
         }
 
-
-        // at(x, y) {
-        //     this.coordinates = [x, y];
-        // }
         // phase out advanceAll because it does for all snakeHeads
         static advanceAll() {
           tailBlocks.forEach(tailBlock => tailBlock.advance())
         }
 
+        reachesMove() {
+          return (
+            typeof this.nextMoveIndex === 'number' &&
+            this.nextMoveIndex < this.snakeHead.moves.length &&
+            this.coordinates[0] === this.snakeHead.moves[this.nextMoveIndex].coordinates[0] &&
+            this.coordinates[1] === this.snakeHead.moves[this.nextMoveIndex].coordinates[1]
+          )
+        }
+
         advance() {
-          console.log(`TAILBLOCK ${this.id}`)
-          console.log('tailblock bearing: ' + this.bearing)
-          console.log('tailBlock coordinates: ' + this.coordinates)
-          console.log('tailBlock moves: ')
-          this.moves.forEach(move => {
-            console.log('   move bearing: ' + move.bearing)
-            console.log('   move coordinates: ' + move.coordinates)
-          })
-          if (this.moves.length > 0) {
-            // debugger
-            if (this.coordinates[0] === this.moves[0].coordinates[0] &&
-              this.coordinates[1] === this.moves[0].coordinates[1]){
-                this.bearing = this.moves[0].bearing
-                this.moves.shift()
-            }
-          }
           switch (this.bearing) {
-              case "up":
-                  this.coordinates[1] -= 15
-                  break;
+            case "up":
+                this.coordinates[1] -= 15
+                break;
 
-              case "right":
-                  this.coordinates[0] += 15
-                  break;
+            case "right":
+                this.coordinates[0] += 15
+                break;
 
-              case "down":
-                  this.coordinates[1] += 15
-                  break;
+            case "down":
+                this.coordinates[1] += 15
+                break;
 
-              case "left":
-                  this.coordinates[0] -= 15
-                  break;
+            case "left":
+                this.coordinates[0] -= 15
+                break;
+          }
+
+          if (this.reachesMove()) {
+            this.bearing = this.snakeHead.moves[this.nextMoveIndex].bearing
+            this.nextMoveIndex += 1
           }
         }
+
         render() {
         	// let renderHTML =
         	return `

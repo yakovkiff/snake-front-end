@@ -1,15 +1,12 @@
 class SnakeHead {
 
-    constructor(bearing = 'down', coordinates = [15, 15]) {
-        this.bearing = bearing
-        this.coordinates = coordinates
-        this.tailBlocks = []
-        this.bearingChangeChecker = false
+    constructor(bearing = 'down', coordinates = [15, 15], moves = []) {
+      this.bearing = bearing
+      this.coordinates = coordinates
+      this.moves = moves
+      this.tailBlocks = []
+      this.bearingChangeChecker = false
     }
-
-    // at(x, y) {
-    //     this.coordinates = [x, y];
-    // }
 
     coordinatesAndBearing() {
       return {coordinates: this.coordinates, bearing: this.bearing}
@@ -17,6 +14,18 @@ class SnakeHead {
 
     tailCoordinatesAndBearing() {
       return this.tailBlocks.map(tailBlock => tailBlock.coordinatesBearingAndMoves())
+    }
+
+    hasMadeMoveAfterGrowingTail() {
+      return typeof this.tailBlocks[0].nextMoveIndex === 'number'
+    }
+
+    recordMove() {
+      this.moves.push({coordinates: this.coordinates.slice(), bearing: this.bearing.slice()})
+      this.bearingChangeChecker = true
+      if (this.tailBlocks.length > 0 && !this.hasMadeMoveAfterGrowingTail()) {
+        this.tailBlocks.forEach(tail => tail.nextMoveIndex = this.moves.length - 1)
+      }
     }
 
     advance() {
