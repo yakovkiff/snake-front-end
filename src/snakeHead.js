@@ -8,22 +8,30 @@ class SnakeHead {
       this.bearingChangeChecker = false
     }
 
-    coordinatesAndBearing() {
-      return {coordinates: this.coordinates, bearing: this.bearing}
+    coordinatesBearingAndMoves() {
+      return {coordinates: this.coordinates, bearing: this.bearing, moves: this.moves}
     }
 
-    tailCoordinatesAndBearing() {
-      return this.tailBlocks.map(tailBlock => tailBlock.coordinatesBearingAndMoves())
+    tailCoordinatesBearingAndNextMoveIndex() {
+      return this.tailBlocks.map(tailBlock => tailBlock.coordinatesBearingAndNextMoveIndex())
     }
 
     hasMadeMoveAfterGrowingTail() {
+      //does the tail block have a number in its index? default value == null
       return typeof this.tailBlocks[0].nextMoveIndex === 'number'
     }
 
     recordMove() {
       this.moves.push({coordinates: this.coordinates.slice(), bearing: this.bearing.slice()})
+      //means that you can't turn twice in the same spot and game the system
       this.bearingChangeChecker = true
+
+      //if the snake has tailblocks AND
+      //it has not yet made a move after growing the tail
       if (this.tailBlocks.length > 0 && !this.hasMadeMoveAfterGrowingTail()) {
+        // then give each tail block the index of the last move 
+        // (other moves happened before this tail piece existed)
+        // This line will only be executed ONCE b/c conditions will only be met 1x
         this.tailBlocks.forEach(tail => tail.nextMoveIndex = this.moves.length - 1)
       }
     }

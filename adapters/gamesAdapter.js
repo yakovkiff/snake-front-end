@@ -12,6 +12,7 @@ class GamesAdapter {
 
   saveGame(game) {
     console.log("in saveGame in gamesAdapter")
+    console.log("looking at snake data:", game.snakeData())
     const gameCreateParams = {
       method: 'POST',
       headers: {
@@ -19,7 +20,7 @@ class GamesAdapter {
       },
       body: JSON.stringify({
         // user: game.user,
-        snakeCoordinatesAndBearing: game.snakeCoordinatesAndBearing()
+        snakeCoordinatesAndBearing: game.snakeData()
         // id: game.id
       })
     }

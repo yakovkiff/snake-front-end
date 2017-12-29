@@ -27,8 +27,8 @@ const Game = (function() {
 			return games[games.length - 1]
 		}
 
-		snakeCoordinatesAndBearing() {
-			return {snake: this.snakeHead.coordinatesAndBearing(), tail: this.snakeHead.tailCoordinatesAndBearing()}
+		snakeData() {
+			return {snake: this.snakeHead.coordinatesBearingAndMoves(), tail: this.snakeHead.tailCoordinatesBearingAndNextMoveIndex()}
 		}
 
 	 	save() {

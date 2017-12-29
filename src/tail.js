@@ -5,14 +5,15 @@ const Tail = (function(){
         // the bearing and coodinates paramaters are for creating tail from saved game
         constructor(snakeHead, bearing = null, coordinates = null, nextMoveIndex = null) {
           this.snakeHead = snakeHead
-          // create tail from eating food
           if (!bearing) {
+          // create tail from eating food
             this.setBearingAndCoordinates()
             if (this.snakeHead.tailBlocks.length === 0) {
               this.nextMoveIndex = null
             } else {
               this.nextMoveIndex = this.snakeHead.tailBlocks[this.snakeHead.tailBlocks.length - 1].nextMoveIndex
             }
+          //otherwise, reinstate the saved info
           } else {
             this.bearing = bearing
             this.coordinates = coordinates
@@ -31,13 +32,13 @@ const Tail = (function(){
           return tailBlocks
         }
 
-        // necessary?
-        static renderAll(){
-          return this.tailBlocks().map(tail => tail.render()).join('')
-        }
+        //this would render all instances of tail EVER 
+        // static renderAll(){
+        //   return this.tailBlocks().map(tail => tail.render()).join('')
+        // }
 
-        coordinatesBearingAndMoves() {
-          return {coordinates: this.coordinates, bearing: this.bearing, moves: this.moves}
+        coordinatesBearingAndNextMoveIndex() {
+          return {coordinates: this.coordinates, bearing: this.bearing, nextMoveIndex: this.nextMoveIndex}
         }
 
         setBearingAndCoordinates() {
@@ -118,6 +119,8 @@ const Tail = (function(){
             </div>
         	`
         }
+        //this is here b/c it doesn't depend on snakehead at all 
+        //find this element in the DOM and remove all of it
         static removeAll() {
             $('.tail').remove()
         }
