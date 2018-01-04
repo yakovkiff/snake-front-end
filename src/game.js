@@ -14,7 +14,7 @@ const Game = (function() {
 			this.id = nextId++
 			this.snakeHead = snakeHead
 			this.paused = true
-			this.over = false
+			// this.over = false
 			this.gameReady = true
 			games.push(this)
 		}
@@ -25,6 +25,12 @@ const Game = (function() {
 
 		static last() {
 			return games[games.length - 1]
+		}
+
+		static removeEventListeners() {
+			$('#save-game').off()
+			$('#saved-games-container').off()
+			$('#message-container').off()
 		}
 
 		snakeData() {
