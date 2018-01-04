@@ -84,14 +84,14 @@ function playGame(savedGame = null) {
     const playground = $('#game-container')
     playground.append(savedGame.snakeHead.render() + savedGame.snakeHead.renderTail())
     savedGame.snakeHead.tailBlocks.forEach(tail => {
-      console.log(`TAILBLOCK ${tail.id}`)
       console.log('tailblock bearing: ' + tail.bearing)
       console.log('tailBlock coordinates: ' + tail.coordinates)
-      console.log('tailBlock moves: ')
-      tail.moves.forEach(move => {
-        console.log('   move bearing: ' + move.bearing)
-        console.log('   move coordinates: ' + move.coordinates)
-      })
+      console.log('tailBlock nextMoveIndex: ' + tail.nextMoveIndex)
+    })
+    savedGame.snakeHead.moves.forEach((move, index) => {
+      console.log('MOVE INDEX: ' + index)
+      console.log('move bearing: ' + move.bearing)
+      console.log('move coordinates: ' + move.coordinates)
     })
   }
 
@@ -106,13 +106,11 @@ function playGame(savedGame = null) {
         .then(function(gameData) {
           console.log('gameData is: ', gameData)
           // put moves in as 3rd arg in line below
-          const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates)
+          const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates, gameData.snakeHead.moves)
       		gameData.tail.forEach(tailBlock => {
-            new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.moves)
+            new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.nextMoveIndex)
           })
       		const game = new Game(snakeHead)
-          console.log("last game's snakeHead's coordinates are" + game.snakeHead.coordinates)
-          game.snakeHead.tailBlocks.forEach(tail => console.log("last game's tail's bearing is" + tail.bearing))
           displayGame(game)
           playGame(game)
         })
@@ -182,6 +180,16 @@ function playGame(savedGame = null) {
       //if user is on second save
       // if (game.user) {
         console.log("just clicked on save game button")
+        game.snakeHead.tailBlocks.forEach(tail => {
+          console.log('tailblock bearing: ' + tail.bearing)
+          console.log('tailBlock coordinates: ' + tail.coordinates)
+          console.log('tailBlock nextMoveIndex: ' + tail.nextMoveIndex)
+        })
+        game.snakeHead.moves.forEach((move, index) => {
+          console.log('MOVE INDEX: ' + index)
+          console.log('move bearing: ' + move.bearing)
+          console.log('move coordinates: ' + move.coordinates)
+        })
         saveGame(game)
       // }
       // else {
