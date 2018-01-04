@@ -23,7 +23,7 @@ class SnakeHead {
 
     recordMove() {
       this.moves.push({coordinates: this.coordinates.slice(), bearing: this.bearing.slice()})
-      
+
       //means that you can't turn twice in the same spot and game the system
       this.bearingChangeChecker = true
 
@@ -35,6 +35,13 @@ class SnakeHead {
         // This line will only be executed ONCE b/c conditions will only be met 1x
         this.tailBlocks.forEach(tail => tail.nextMoveIndex = this.moves.length - 1)
       }
+    }
+
+    trimMovesBeforeSaving() {
+      const minMovesIndex = this.tailBlocks[this.tailBlocks.length - 1].nextMoveIndex
+      const maxMovesIndex = this.moves.length - 1
+      this.moves = this.moves.slice(minMovesIndex)
+      this.tailBlocks.forEach(tail => tail.nextMoveIndex -= minMovesIndex)
     }
 
     advance() {

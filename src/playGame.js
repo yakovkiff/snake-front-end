@@ -179,17 +179,20 @@ function playGame(savedGame = null) {
 
       //if user is on second save
       // if (game.user) {
-        console.log("just clicked on save game button")
-        game.snakeHead.tailBlocks.forEach(tail => {
-          console.log('tailblock bearing: ' + tail.bearing)
-          console.log('tailBlock coordinates: ' + tail.coordinates)
-          console.log('tailBlock nextMoveIndex: ' + tail.nextMoveIndex)
-        })
-        game.snakeHead.moves.forEach((move, index) => {
-          console.log('MOVE INDEX: ' + index)
-          console.log('move bearing: ' + move.bearing)
-          console.log('move coordinates: ' + move.coordinates)
-        })
+        // console.log("just clicked on save game button")
+        // game.snakeHead.tailBlocks.forEach(tail => {
+        //   console.log('tailblock bearing: ' + tail.bearing)
+        //   console.log('tailBlock coordinates: ' + tail.coordinates)
+        //   console.log('tailBlock nextMoveIndex: ' + tail.nextMoveIndex)
+        // })
+        // game.snakeHead.moves.forEach((move, index) => {
+        //   console.log('MOVE INDEX: ' + index)
+        //   console.log('move bearing: ' + move.bearing)
+        //   console.log('move coordinates: ' + move.coordinates)
+        // })
+        const game = Game.last()
+        console.log('snakeHead.tailBlocks is: ', game.snakeHead.tailBlocks)
+        game.snakeHead.trimMovesBeforeSaving()
         saveGame(game)
       // }
       // else {
