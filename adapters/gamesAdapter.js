@@ -1,6 +1,7 @@
 class GamesAdapter {
   constructor() {
-    this.baseUrl = 'http://localhost:3000/api/v1/games'
+    // this.baseUrl = 'http://localhost:3000/api/v1/games'
+    this.baseUrl = 'https://snake-web-game-api.herokuapp.com/api/v1/games'
   }
 
   getGame() {
