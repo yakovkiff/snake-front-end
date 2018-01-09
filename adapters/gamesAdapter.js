@@ -20,9 +20,8 @@ class GamesAdapter {
         'Content-Type':'application/json'
       },
       body: JSON.stringify({
-        // user: game.user,
+        user: game.user,
         snakeCoordinatesAndBearing: game.snakeData()
-        // id: game.id
       })
     }
     return fetch(this.baseUrl, gameCreateParams).then(resp => resp.json())

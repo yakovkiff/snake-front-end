@@ -28,7 +28,9 @@ const Game = (function() {
 		}
 
 		static removeEventListeners() {
+			$(document).off()
 			$('#save-game').off()
+			$('#user-form-container').off()
 			$('#saved-games-container').off()
 			$('#message-container').off()
 		}

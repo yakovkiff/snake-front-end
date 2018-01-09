@@ -144,21 +144,25 @@ function playGame(savedGame = null) {
     $('#save-game').on('click', function() {      
       UserForm.renderOnPage()
       game.gameReady = false
+      $('#user-form-container').show()
     })
 
     //event listener for submit new user
-    $('#user-form-container').click(function(event){
-      if (event.target.id === 'submit-user') {
-      game.gameReady = true
-      console.log("i am in user-form-container, about to save game")
-      console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)
+    $('#user-form-container').on('click', function(event){
+      if (event.target.id === 'save-user') {
+        const userName = $('#user-name')
+        console.log("user name", userName)
+        game.gameReady = true
+        console.log("i am in user-form-container, about to save game")
+        console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)
         snakeHead.trimMovesBeforeSaving()
         saveGame(game)
+        $('#user-form-container').hide()
       }
     })
 
     //event listener for submit new user
-    $('#saved-games-container').click(function(event){
+    $('#saved-games-container').on('click', function(event){
       if (event.target.id === 'resume-saved-game') {
         // const numGames = Game.count()
         console.log('clicked resume save game')
