@@ -150,8 +150,9 @@ function playGame(savedGame = null) {
     //event listener for submit new user
     $('#user-form-container').on('click', function(event){
       if (event.target.id === 'save-user') {
-        const userName = $('#user-name')
+        const userName = $('#user-name').value
         console.log("user name", userName)
+        game.user = new User(userName)
         game.gameReady = true
         console.log("i am in user-form-container, about to save game")
         console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)

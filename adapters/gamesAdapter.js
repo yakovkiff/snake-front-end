@@ -20,7 +20,7 @@ class GamesAdapter {
         'Content-Type':'application/json'
       },
       body: JSON.stringify({
-        user: game.user,
+        user: game.user.name,
         snakeCoordinatesAndBearing: game.snakeData()
       })
     }
