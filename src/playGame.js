@@ -76,6 +76,7 @@ function playGame(savedGame = null) {
   function snakeAteItself(tailBlock) {
     return snakeHead.coordinates[0] === tailBlock.coordinates[0] && snakeHead.coordinates[1] === tailBlock.coordinates[1]
   }
+
   function handleGameLost() {
     // snakeAlive = false
     game.paused = true
@@ -91,15 +92,6 @@ function playGame(savedGame = null) {
     playground.append(savedGame.snakeHead.render() + savedGame.snakeHead.renderTail())
   }
 
-  //event listener for submit new user
-  $('#user-form-container').click(function(event){
-    if (event.target.id === 'submit-user') {
-    game.gameReady = true
-    user = submitUser() //this returns a new User
-    game.user = user
-    saveGame(game)
-    }
-  })
 
     // gives tailblocks the ability to follow the head and turn at the same location the head turned
     $(document).on('keydown', function(event) {
@@ -149,23 +141,20 @@ function playGame(savedGame = null) {
       }
     })
 
-    $('#save-game').on('click', function() {
-      // if game has already been saved, immediately call saveGame()
-      // to check this, check if game already has user
-      // otherwise, render user form (when submit button is hit, saveGame is called)
+    $('#save-game').on('click', function() {      
+      UserForm.renderOnPage()
+      game.gameReady = false
+    })
 
-      //if user is on second save
-      // if (game.user) {
-
-      // const game = Game.last()
+    //event listener for submit new user
+    $('#user-form-container').click(function(event){
+      if (event.target.id === 'submit-user') {
+      game.gameReady = true
+      console.log("i am in user-form-container, about to save game")
       console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)
-      snakeHead.trimMovesBeforeSaving()
-      saveGame(game)
-      // }
-      // else {
-      // UserForm.renderOnPage()
-      // game.gameReady = false
-      // }
+        snakeHead.trimMovesBeforeSaving()
+        saveGame(game)
+      }
     })
 
     //event listener for submit new user
