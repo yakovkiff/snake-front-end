@@ -5,21 +5,18 @@ class UsersAdapter {
 
   getUsers() {
     return fetch(this.baseUrl).then(resp => resp.json())
-    //fetch is a get request to the URL
-    //then it is parsed in JSON
-
   }
 
-  createUser(name, email, highScore) {
-    const userCreateParams = {
-      method: 'POST',
-      headers: {
-        'Content-Type':'application/json'
-      },
-      body: JSON.stringify({users: {name: name, email: email, high_score: highScore}})
-    }
-    return fetch(this.baseUrl,userCreateParams).then( resp => resp.json() ).then(resp=>console.log("from usersAdapter.js #createUser", resp))
-  }
+  // createUser(name, email, highScore) {
+  //   const userCreateParams = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type':'application/json'
+  //     },
+  //     body: JSON.stringify({users: {name: name, email: email, high_score: highScore}})
+  //   }
+  //   return fetch(this.baseUrl,userCreateParams).then( resp => resp.json() ).then(resp=>console.log("from usersAdapter.js #createUser", resp))
+  // }
 
 }
 

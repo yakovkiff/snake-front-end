@@ -150,7 +150,9 @@ function playGame(savedGame = null) {
     //event listener for submit new user
     $('#user-form-container').on('click', function(event){
       if (event.target.id === 'save-user') {
-        const userName = $('#user-name').value
+        const userNameEl = $('#user-name')
+        const userName = userNameEl.val()
+        console.log("user name Element", userNameEl)
         console.log("user name", userName)
         game.user = new User(userName)
         game.gameReady = true

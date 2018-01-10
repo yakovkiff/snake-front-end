@@ -13,6 +13,7 @@ class GamesAdapter {
 
   saveGame(game) {
     console.log("in saveGame in gamesAdapter")
+    console.log(game.user.name)
     console.log("looking at snake data:", game.snakeData())
     const gameCreateParams = {
       method: 'POST',
