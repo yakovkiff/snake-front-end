@@ -141,7 +141,7 @@ function playGame(savedGame = null) {
       }
     })
 
-    $('#save-game').on('click', function() {      
+    $('#save-game').on('click', function() {
       UserForm.renderOnPage()
       game.gameReady = false
       $('#user-form-container').show()
@@ -164,6 +164,11 @@ function playGame(savedGame = null) {
 
     //event listener for submit new user
     $('#saved-games-container').on('click', function(event){
+      if (event.target.id === 'select-user') {
+        SelectUserForm.renderOnPage()
+        game.gameReady = false
+        $('#select-user-form-container').show()
+      }
       if (event.target.id === 'resume-saved-game') {
         // const numGames = Game.count()
         console.log('clicked resume save game')
@@ -181,6 +186,12 @@ function playGame(savedGame = null) {
             displayGame(game)
             playGame(game)
           })
+      }
+    })
+
+    $('#select-user-form-container').on('click', function(event){
+      if (event.target.id === 'load-saved-game') {
+        $('#select-user-form-container').hide()
       }
     })
 

@@ -11,6 +11,7 @@
     <script type="text/javascript" src="src/user.js"></script>
     <script type="text/javascript" src="handlers/usersHandler.js"></script>
     <script type="text/javascript" src="src/userForm.js"></script>
+    <script type="text/javascript" src="src/selectUserForm.js"></script>
     <script type="text/javascript" src="src/game.js"></script>
     <script type="text/javascript" src="adapters/gamesAdapter.js"></script>
     <script type="text/javascript" src="handlers/gamesHandler.js"></script>
@@ -56,7 +57,7 @@
         margin-top: 14px;
     }
     #users-container{
-position: absolute;
+    position: absolute;
     top: 500px;
     left: 280px;
     text-align: center;
@@ -72,6 +73,18 @@ position: absolute;
         padding: 44px;
         font-size: -webkit-xxx-small;
         left: 195px;
+    }
+    #select-user-form-container {
+      display: none;
+      position: absolute;
+      background: rgba(128, 128, 128, 0.3);
+      width: 399px;
+      height: 265px;
+      text-align: center;
+      top: 183px;
+      padding: 44px;
+      font-size: -webkit-xxx-small;
+      left: 195px;
     }
     .game-title {
         position: absolute;
@@ -147,6 +160,8 @@ position: absolute;
         <button id="save-game" class="btn btn-lg btn-warning animated fadeInUp" style="display: none">Save</button>
     <div id="user-form-container">
     </div>
+    <div id="select-user-form-container">
+    </div>
 <!--     <div id="users-container">
         <div>
             <h3>High Scores</h3>
@@ -154,6 +169,7 @@ position: absolute;
     </div> -->
     <div id="saved-games-container">
       <button id="resume-saved-game">Resume Saved Game</button>
+      <button id="select-user">Select User</button>
     </div>
     <div id="score-container">
         <div id="score" class="animated fadeInUp" style="display: none">Score:<span style="color: darkred">0</span></div>
