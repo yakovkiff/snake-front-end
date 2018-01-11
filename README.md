@@ -1,4 +1,6 @@
-To play:
+#ReadMe
+
+##Overview
 
 This app is deployed to Heroku, users can play at https://snake-web-game.herokuapp.com
 
@@ -9,13 +11,13 @@ The snake starts as a single square in a bordered container. As it moves forward
 The game is over when the snake dies,either by running ito itself or the borders of box. 
 
 
-Game Flow
+##Game Flow
 - user can press spacebar to begin and to pause
 - arrow keys change the direction that the snake is moving
 - user can save the game after pausing, and can refresh the page and retrieve the saved game
 
 
-Languages & tools
+##Languages & tools
 JavaScript
   - JQuery
 
