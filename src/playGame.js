@@ -142,9 +142,14 @@ function playGame(savedGame = null) {
     })
 
     $('#save-game').on('click', function() {
-      UserForm.renderOnPage()
-      game.gameReady = false
-      $('#user-form-container').show()
+      if (game.user) {
+        snakeHead.trimMovesBeforeSaving()
+        saveGame(game)
+      } else {
+        UserForm.renderOnPage()
+        game.gameReady = false
+        $('#user-form-container').show()
+      }
     })
 
     //event listener for submit new user
@@ -152,12 +157,12 @@ function playGame(savedGame = null) {
       if (event.target.id === 'save-user') {
         const userNameEl = $('#user-name')
         const userName = userNameEl.val()
-        console.log("user name Element", userNameEl)
-        console.log("user name", userName)
+        // console.log("user name Element", userNameEl)
+        // console.log("user name", userName)
         game.user = new User(userName)
         game.gameReady = true
-        console.log("i am in user-form-container, about to save game")
-        console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)
+        // console.log("i am in user-form-container, about to save game")
+        // console.log('snakeHead.tailBlocks is: ', snakeHead.tailBlocks)
         snakeHead.trimMovesBeforeSaving()
         saveGame(game)
         $('#user-form-container').hide()
@@ -211,7 +216,7 @@ function playGame(savedGame = null) {
         location.reload();
       }
       if (event.target.nodeName === "BUTTON" && event.target.id === "save-score-btn") {
-        submitUser()
+        // submitUser()
       }
     })
 
