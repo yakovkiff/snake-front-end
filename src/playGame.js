@@ -220,6 +220,7 @@ function playGame(savedGame = null) {
       }
       if (event.target.nodeName === "BUTTON" && event.target.id === "save-score-btn") {
         // submitUser()
+        location.reload();
       }
     })
 
