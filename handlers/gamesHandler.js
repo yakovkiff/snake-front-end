@@ -13,8 +13,8 @@ function saveGame(game){
 	Game.gameOn = false
 }
 
-function retrieveGame() {
-	return gamesAdapt.getGame().then(function(game) {
+function retrieveGame(username) {
+	return gamesAdapt.getGame(username).then(function(game) {
 		console.log("this is from database", game)
 		return game
 	})

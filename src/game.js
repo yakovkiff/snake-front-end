@@ -31,7 +31,8 @@ const Game = (function() {
 			$(document).off()
 			$('#save-game').off()
 			$('#user-form-container').off()
-			$('#saved-games-container').off()
+			$('#resume-saved-game-container').off()
+			$('#select-user-and-load-game-container').off()
 			$('#message-container').off()
 		}
 

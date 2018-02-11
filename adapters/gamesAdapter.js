@@ -4,11 +4,8 @@ class GamesAdapter {
     // this.baseUrl = 'https://snake-web-game-api.herokuapp.com/api/v1/games'
   }
 
-  getGame() {
-    return fetch(this.baseUrl).then(resp => resp.json())
-    //fetch is a get request to the URL
-    //then it is parsed in JSON
-
+  getGame(username) {
+    return fetch(this.baseUrl + `/${username}`).then(resp => resp.json())
   }
 
   saveGame(game) {

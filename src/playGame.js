@@ -164,12 +164,11 @@ function playGame(savedGame = null) {
       }
     })
 
-    //event listener for submit new user
-    $('#saved-games-container').on('click', function(event){
-      if (event.target.id === 'select-user') {
+    //click resume-saved-game to bring up form for loading saved game by username
+    $('#resume-saved-game-container').on('click', function(event){
+      if (event.target.id === 'resume-saved-game') {
         SelectUserForm.renderOnPage()
         game.gameReady = false
-        // const selectUserEl = $('#user-selection')
         const selectUserEl = document.getElementById('user-selection')
         console.log(selectUserEl)
         retrieveUsers().then(usernames => {
@@ -180,28 +179,28 @@ function playGame(savedGame = null) {
           })
         })
       }
-      else if (event.target.id === 'resume-saved-game') {
-        // const numGames = Game.count()
-        console.log('clicked resume save game')
+    })
+
+    // select username and load saved game
+    $('#select-user-and-load-game-container').on('click', function(event){
+      if (event.target.id === 'load-saved-game') {
+        console.log('clicked load saved game')
         clearInterval(gameFlow)
         Game.removeEventListeners()
         playground.empty()
-        retrieveGame()
+        const username = $('#user-selection').val()
+        const user = new User(username)
+        retrieveGame(username)
           .then(function(gameData) {
             console.log('gameData is: ', gameData)
             const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates, gameData.snakeHead.moves)
             gameData.tail.forEach(tailBlock => {
               new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.nextMoveIndex)
             })
-            const game = new Game(snakeHead)
+            const game = new Game(snakeHead, user)
             displayGame(game)
             playGame(game)
           })
-      }
-    })
-
-    $('#select-user-form-container').on('click', function(event){
-      if (event.target.id === 'load-saved-game') {
         $('#select-user-form-container').hide()
       }
     })
