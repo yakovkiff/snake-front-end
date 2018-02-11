@@ -17,6 +17,13 @@ function submitUser(){
 	return user
 }
 
+function retrieveUsers() {
+	return usersAdapt.getUsers().then(usernames => {
+		console.log("users retrieved in usersHandler:", usernames)
+		return usernames
+	})
+}
+
 
 
 // function renderUsers(){

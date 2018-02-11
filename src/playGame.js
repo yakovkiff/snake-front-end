@@ -169,9 +169,18 @@ function playGame(savedGame = null) {
       if (event.target.id === 'select-user') {
         SelectUserForm.renderOnPage()
         game.gameReady = false
-        $('#select-user-form-container').show()
+        // const selectUserEl = $('#user-selection')
+        const selectUserEl = document.getElementById('user-selection')
+        console.log(selectUserEl)
+        retrieveUsers().then(usernames => {
+          usernames.forEach(username => {
+            console.log(selectUserEl.options)
+            selectUserEl.options[selectUserEl.options.length] = new Option(username, username)
+            $('#select-user-form-container').show()
+          })
+        })
       }
-      if (event.target.id === 'resume-saved-game') {
+      else if (event.target.id === 'resume-saved-game') {
         // const numGames = Game.count()
         console.log('clicked resume save game')
         clearInterval(gameFlow)
