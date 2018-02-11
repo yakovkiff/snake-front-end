@@ -5,7 +5,7 @@ class UserForm {
       <label for="user-name"> Name </label>
       <input type='text' id="user-name" name="user-name">
 
-      <button type="button" id="save-user" class="btn btn-default"> Save Game </button>
+      <button type="button" id="save-user" class="btn btn-warning"> Save Game </button>
 
     </form>
     `

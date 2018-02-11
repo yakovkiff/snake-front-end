@@ -3,19 +3,31 @@ const Food = (function () {
 	const animations = ['bounce', 'rubberBand', 'shake', 'tada', 'jello', 'jackInTheBox']
 
 	return class Food {
-		constructor(coordinates = []) {
-			this.coordinates = coordinates
+		constructor(snakeCoordinates = []) {
+			this.snakeCoordinates = snakeCoordinates
 			// x max is 585/15
 			//y max is 390/15
-			let x = this.getRandomMultipleOfFifteen(0, 39)
-			let y = this.getRandomMultipleOfFifteen(0, 26)
-			this.coordinates.push(x)
-			this.coordinates.push(y)
+			this.coordinates = this.produceAndCheckCoordinates()
 			foodCount++
 		}
 
 		getRandomMultipleOfFifteen(min, max) {
 			return Math.round((Math.random() * (max - min) + min)) * 15
+		}
+
+		produceCoordinates() {
+			const x = this.getRandomMultipleOfFifteen(0, 39)
+			const y = this.getRandomMultipleOfFifteen(0, 26)
+			return [x, y]
+		}
+
+		produceAndCheckCoordinates() {
+			let coordinates = this.produceCoordinates()
+			// while there is some ordered pair in snakeCoordinates that matches the produced food coordinates...
+			while (this.snakeCoordinates.some(orderedPair => orderedPair[0] === coordinates[0] && orderedPair[1] === coordinates[1])) {
+				coordinates = this.produceCoordinates()
+			}
+			return coordinates
 		}
 
 		render() {

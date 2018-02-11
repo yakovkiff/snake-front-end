@@ -15,7 +15,7 @@ function playGame(savedGame = null) {
 
   }
 
-  let food = new Food()
+  let food = new Food(snakeHead.allSnakeCoordinates())
 
   const playground = $('#game-container')
   playground.append(food.render())
@@ -52,7 +52,7 @@ function playGame(savedGame = null) {
 
           if (snakeEatsFood()) {
             food.delete()
-            food = new Food()
+            food = new Food(snakeHead.allSnakeCoordinates())
             playground.append(food.render())
 
             new Tail(snakeHead)
@@ -178,10 +178,10 @@ function playGame(savedGame = null) {
         SelectUserForm.renderOnPage()
         game.gameReady = false
         const selectUserEl = document.getElementById('user-selection')
-        console.log(selectUserEl)
+        // console.log(selectUserEl)
         retrieveUsers().then(usernames => {
           usernames.forEach(username => {
-            console.log(selectUserEl.options)
+            // console.log(selectUserEl.options)
             selectUserEl.options[selectUserEl.options.length] = new Option(username, username)
             $('#select-user-and-load-game-container').show()
           })
@@ -192,15 +192,16 @@ function playGame(savedGame = null) {
     // select username and load saved game
     $('#select-user-and-load-game-container').on('click', function(event){
       if (event.target.id === 'load-saved-game') {
-        console.log('clicked load saved game')
-        clearInterval(gameFlow)
-        Game.removeEventListeners()
-        playground.empty()
         const username = $('#user-selection').val()
-        const user = new User(username)
-        retrieveGame(username)
+        // console.log(username)
+        if (username) {
+          clearInterval(gameFlow)
+          Game.removeEventListeners()
+          playground.empty()
+          const user = new User(username)
+          retrieveGame(username)
           .then(function(gameData) {
-            console.log('gameData is: ', gameData)
+            // console.log('gameData is: ', gameData)
             const snakeHead = new SnakeHead(gameData.snakeHead.bearing, gameData.snakeHead.coordinates, gameData.snakeHead.moves)
             gameData.tail.forEach(tailBlock => {
               new Tail(snakeHead, tailBlock.bearing, tailBlock.coordinates, tailBlock.nextMoveIndex)
@@ -209,7 +210,10 @@ function playGame(savedGame = null) {
             displayGame(game)
             playGame(game)
           })
-        $('#select-user-and-load-game-container').hide()
+          $('#select-user-and-load-game-container').hide()
+        } else {
+          alert('Please select username.')
+        }
       }
     })
 

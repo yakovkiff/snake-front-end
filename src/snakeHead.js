@@ -8,6 +8,11 @@ class SnakeHead {
       this.bearingChangeChecker = false
     }
 
+    allSnakeCoordinates() {
+      const tailCoordinates = this.tailBlocks.map(block => block.coordinates)
+      return [this.coordinates, ...tailCoordinates]
+    }
+
     coordinatesBearingAndMoves() {
       return {coordinates: this.coordinates, bearing: this.bearing, moves: this.moves}
     }
