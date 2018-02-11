@@ -9,6 +9,10 @@ function playGame(savedGame = null) {
     console.log("you are attempting to play a saved game")
     game = savedGame
     snakeHead = savedGame.snakeHead
+    $('#play-instructions').addClass('animated fadeOutUp')
+    $('#score-number').text(`${game.score()}`)
+    $('#score').fadeIn()
+
   }
 
   let food = new Food()
@@ -26,7 +30,6 @@ function playGame(savedGame = null) {
   let bottomBound = 391
 
   const moves = []
-  let user = ''
 
   const scoreContainer = $('#score-container')
 
@@ -56,9 +59,9 @@ function playGame(savedGame = null) {
 
             scoreContainer.html(`<div id="score" class="">Score:<span style="color: darkred">${game.score()}</span></div>`)
 
-            if (game.score() / 100 > 1 && !displayingGif) {
-                displayGif("exited")
-            }
+            // if (game.score() / 100 > 1 && !displayingGif) {
+            //     displayGif("exited")
+            // }
           }
 
           snakeHead.remove()
@@ -152,7 +155,7 @@ function playGame(savedGame = null) {
       }
     })
 
-    //event listener for submit new user
+    // enter username and save game
     $('#user-form-container').on('click', function(event){
       if (event.target.id === 'save-user') {
         const userNameEl = $('#user-name')
@@ -210,7 +213,7 @@ function playGame(savedGame = null) {
       }
     })
 
-
+    // end-of-game form
     $('#message-container').on('click', function() {
       if (event.target.nodeName === "BUTTON" && event.target.id === "new-game-btn") {
         location.reload();
