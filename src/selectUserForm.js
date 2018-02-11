@@ -10,6 +10,6 @@ class SelectUserForm {
     `
   }
   static renderOnPage() {
-    $('#select-user-form-container').html(this.render())
+    $('#select-user-and-load-game-container').html(this.render())
   }
 }

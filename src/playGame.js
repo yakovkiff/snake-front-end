@@ -175,7 +175,7 @@ function playGame(savedGame = null) {
           usernames.forEach(username => {
             console.log(selectUserEl.options)
             selectUserEl.options[selectUserEl.options.length] = new Option(username, username)
-            $('#select-user-form-container').show()
+            $('#select-user-and-load-game-container').show()
           })
         })
       }
@@ -201,7 +201,7 @@ function playGame(savedGame = null) {
             displayGame(game)
             playGame(game)
           })
-        $('#select-user-form-container').hide()
+        $('#select-user-and-load-game-container').hide()
       }
     })
 
